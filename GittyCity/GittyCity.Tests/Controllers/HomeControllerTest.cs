@@ -19,7 +19,7 @@ namespace GittyCity.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Index() as ViewResult;
+            ViewResult result = controller.Home() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -32,7 +32,7 @@ namespace GittyCity.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.About() as ViewResult;
+            ViewResult result = controller.GPS() as ViewResult;
 
             // Assert
             Assert.AreEqual("Your application description page.", result.ViewBag.Message);
@@ -45,7 +45,7 @@ namespace GittyCity.Tests.Controllers
             HomeController controller = new HomeController();
 
             // Act
-            ViewResult result = controller.Contact() as ViewResult;
+            ViewResult result = controller.Car_info() as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
