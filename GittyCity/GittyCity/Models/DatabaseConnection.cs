@@ -14,7 +14,7 @@ namespace GittyCity.Models
             const string uri = "mongodb://ricardo:hula@145.24.222.168:22/CityTest";
             //const string uri = "mongodb://localhost/mydb";
             var client = new MongoClient(uri);
-            var db = client.GetServer().GetDatabase(new MongoUrl(uri).DatabaseName);
+            var db = client.GetDatabase(new MongoUrl(uri).DatabaseName);
             return db;
         }
     }
