@@ -9,13 +9,12 @@ namespace GittyCity.Models
 {
     public class DatabaseConnection
     {
-        public static IMongoDatabase databaseConnect()
+        public IMongoDatabase getMongoDB()
         {
-            const string uri = "mongodb://ricardo:hula@145.24.222.168:22/CityTest";
-            //const string uri = "mongodb://localhost/mydb";
-            var client = new MongoClient(uri);
-            var db = client.GetDatabase(new MongoUrl(uri).DatabaseName);
-            return db;
+            String conn = "mongodb://u1:u1@145.24.222.168:22/CityGis";
+            IMongoClient client = new MongoClient(conn);
+            var iMgDb = client.GetDatabase(conn);
+            return iMgDb;
         }
     }
 }
