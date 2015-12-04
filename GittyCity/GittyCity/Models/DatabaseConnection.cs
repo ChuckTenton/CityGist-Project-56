@@ -9,12 +9,15 @@ namespace GittyCity.Models
 {
     public class DatabaseConnection
     {
-        public IMongoDatabase getMongoDB()
+        protected static IMongoClient _client;
+        protected static IMongoDatabase _database;
+
+        public static IMongoDatabase getMongoDB()
         {
-            String conn = "mongodb://u1:u1@145.24.222.168:22/CityGis";
-            IMongoClient client = new MongoClient(conn);
-            var iMgDb = client.GetDatabase(conn);
-            return iMgDb;
+            _client = new MongoClient("mongodb://145.24.222.168"); //Connection string gaat hier
+            _database = _client.GetDatabase("CityTest");
+            return _database;
         }
+       
     }
 }
