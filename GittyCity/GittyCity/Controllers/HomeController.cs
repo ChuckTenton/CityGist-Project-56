@@ -39,11 +39,11 @@ namespace GittyCity.Controllers
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            Task<int> task1 = Task<int>.Factory.StartNew(() => { return countCollectionRows(); });
-            ViewBag["test"] = null;
+            Task task1 = Task.Run(() => countCollectionRows());
+            ViewData["test"] = task1;
             return View();
         }
-        public static async Task<int> countCollectionRows()
+        public async Task<int> countCollectionRows()
         {
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>("Event");
@@ -61,6 +61,7 @@ namespace GittyCity.Controllers
                     }
                 }
             }
+            Console.WriteLine(count);
             return count;
         }
         public async Task MainAsync()
