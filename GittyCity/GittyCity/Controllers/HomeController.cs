@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using GittyCity.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System.Threading.Tasks;
+using System.Web.UI;
+using System.Diagnostics;
+using System.Threading;
 
 namespace GittyCity.Controllers
 {
@@ -35,8 +39,48 @@ namespace GittyCity.Controllers
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            IMongoDatabase db = DatabaseConnection.getMongoDB();
+            Task<int> task1 = Task<int>.Factory.StartNew(() => { return countCollectionRows(); });
+            ViewBag["test"] = null;
             return View();
+        }
+        public static async Task<int> countCollectionRows()
+        {
+            IMongoDatabase _database = DatabaseConnection.getMongoDB();
+            var collection = _database.GetCollection<BsonDocument>("Event");
+            var filter = new BsonDocument();
+            var count = 0;
+            using (var cursor = await collection.FindAsync(filter))
+            {
+                while (await cursor.MoveNextAsync())
+                {
+                    var batch = cursor.Current;
+                    foreach (var document in batch)
+                    {
+                        // process document
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+        public async Task MainAsync()
+        {
+            Task task1 = new Task(Task1);
+            task1.Start();
+            task1.Wait();
+            Debug.WriteLine("Finished main method");
+        }
+
+        public async void Task1()
+        {
+            Thread.Sleep(10000);
+            Debug.WriteLine("Finished Task1");
+        }
+
+        public async Task Task2()
+        {
+            await Task.Delay(10000);
+            Debug.WriteLine("Finished Task2");
         }
     }
 }

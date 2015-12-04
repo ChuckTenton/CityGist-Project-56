@@ -14,8 +14,8 @@ namespace GittyCity.Models
 
         public static IMongoDatabase getMongoDB()
         {
-            _client = new MongoClient("mongodb://145.24.222.168"); //Connection string gaat hier
-            _database = _client.GetDatabase("CityTest");
+            _client = new MongoClient("mongodb://ricardo:hula@145.24.222.168/CityGis"); //Connection string gaat hier
+            _database = _client.GetDatabase("CityGis");
             return _database;
         }
        
