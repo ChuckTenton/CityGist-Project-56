@@ -49,19 +49,20 @@ namespace GittyCity.Controllers
             var collection = _database.GetCollection<BsonDocument>("Event");
             var filter = new BsonDocument();
             var count = 0;
-            using (var cursor = await collection.FindAsync(filter))
-            {
-                while (await cursor.MoveNextAsync())
+                using (var cursor = await collection.FindAsync(filter))
                 {
-                    var batch = cursor.Current;
-                    foreach (var document in batch)
+                    while (await cursor.MoveNextAsync())
                     {
-                        // process document
-                        count++;
+                        var batch = cursor.Current;
+                        foreach (var document in batch)
+                        {
+                            // process document
+                            count++;
+                        }
                     }
                 }
-            }
-            Console.WriteLine(count);
+            ViewBag.count = count;
+            Debug.WriteLine(count);
             return count;
         }
         public async Task MainAsync()
