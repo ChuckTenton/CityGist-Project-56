@@ -1,24 +1,135 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿*{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0px;
+    padding: 0px;
 }
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
 }
-
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+nav{
+    background-color: #272727;
+    color: #FFFFFF;
+    width: 100vw;
+    height: 16vh;
+    display: flex;
+    align-items: center;
 }
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+nav *{
+    height: 100%;
+}
+#main_placeholder{
+    flex-grow: 7;
+}
+#main_img{
+    height: 100%;
+}
+#main_title{
+    flex-grow: 7;
+    font-size: 42px;
+    height: 48%;
+    text-align: center;
+}
+#login_btn{
+    display: inline-flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+    align-self: flex-start;
+    font-size: 36px;
+    padding-right: 2em;
+    border-radius: 40px;
+    height: 50%;
+    transition: background-color 0.5s;
+    text-align: center;
+}
+#login_btn:hover{
+    background-color: #595959;
+}
+#content{
+    background-color: #383838;
+    width: 100vw;
+    height: 81vh;
+    color: white;
+    padding-top: 3vh;
+}
+#intro_div{
+    background-color: #4A4A4A;
+    width: 70%;
+    height: 2em;
+    overflow-y: hidden;
+    padding: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
+    border-radius: 20px;
+    transition: height 0.5s;
+}
+#intro_div:hover{
+    height: 7em;
+}
+#content_title{
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+.paragraph {
+    font-size: 14px;
+}
+#info_select{
+    width: 90%;
+    margin: 0px auto 0px auto;
+}
+#nav_category{
+    display: flex;
+    width: 100%;
+    height: 40px;
+    font-size: 24px;
+    margin-bottom: 1em;
+}
+.nav_category_tab{
+    height: 100%;
+    flex-grow: 1;
+    text-align: center;
+    background-color: #272727;
+    transition: background-color 0.5s;
+}
+.nav_category_tab:hover{
+    background-color: #999999;
+    cursor: pointer;
+}
+#con_all{
+    width: 800vw;
+    height: 15vh;
+    position: absolute;
+    left: 10vw;
+    transition: left 0.5s;
+}
+.con_category{
+    display: inline-block;
+    margin: 0px 20vw 0px 0px;
+    padding: 1vw;
+    width: 78vw;
+    height: 25vh;   
+    border-radius: 20px; 
+}
+.con_category h1{
+    width: 100%;
+    text-align: center;
+}
+.cat_options{
+    margin: 0px auto 0px auto;
+    width: 100%;
+    display: flex;
+    align-content: center;
+    justify-content: space-around;
+}
+.option{
+    display: flex;
+    justify-content: space-around;
+    width: 30%;
+    padding: 1em;
+    margin: 0px auto 0px auto;
+    border-radius: 10px;
+    background-color: #383838;
+    border: 2px solid #272727;
 }
