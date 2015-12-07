@@ -65,24 +65,5 @@ namespace GittyCity.Controllers
             Debug.WriteLine(count);
             return count;
         }
-        public async Task MainAsync()
-        {
-            Task task1 = new Task(Task1);
-            task1.Start();
-            task1.Wait();
-            Debug.WriteLine("Finished main method");
-        }
-
-        public async void Task1()
-        {
-            Thread.Sleep(10000);
-            Debug.WriteLine("Finished Task1");
-        }
-
-        public async Task Task2()
-        {
-            await Task.Delay(10000);
-            Debug.WriteLine("Finished Task2");
-        }
     }
 }
