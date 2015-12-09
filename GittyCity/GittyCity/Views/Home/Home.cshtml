@@ -68,7 +68,12 @@
                         <br />
                         <div id="unitID_options" class="cat_options">
                             <div class="option">
-                                Auto ID: <input type="text" />
+                                    <select>
+                                        @foreach (string id in ViewData["id"] as string[])
+                                        {
+                                            <option>@id</option>
+                                        }
+                                    </select>
                             </div>
                         </div>
                     </section><!--
@@ -130,7 +135,7 @@
                         </div>
                     </section>
                 </section>     
-                @ViewBag.test           
+                          
             </div>          
         </section>
         <script>
