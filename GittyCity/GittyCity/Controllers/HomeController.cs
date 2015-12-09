@@ -39,31 +39,25 @@ namespace GittyCity.Controllers
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            Task task1 = Task.Run(() => countCollectionRows());
-            ViewData["test"] = task1;
+            Task<List<BsonDocument>> task1 = Task.Run(() => countCollectionRows());
+            task1.Wait();
+            var f = "";
+            var t = task1.Result;
+            foreach (BsonDocument b in t)
+            {
+                var a = b.ToJson();
+                f += a.ToString();
+            }
+            ViewBag.test = f;
             return View();
         }
-        public async Task<int> countCollectionRows()
+        public async Task<List<BsonDocument>> countCollectionRows()
         {
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
-            var collection = _database.GetCollection<BsonDocument>("Event");
-            var filter = new BsonDocument();
-            var count = 0;
-                using (var cursor = await collection.FindAsync(filter))
-                {
-                    while (await cursor.MoveNextAsync())
-                    {
-                        var batch = cursor.Current;
-                        foreach (var document in batch)
-                        {
-                            // process document
-                            count++;
-                        }
-                    }
-                }
-            ViewBag.count = count;
-            Debug.WriteLine(count);
-            return count;
+            var collection = _database.GetCollection<BsonDocument>("Monitoring");
+            var aggregate = collection.Aggregate().Group(new BsonDocument { { "_id", "$UnitId" }});
+            var results = await aggregate.ToListAsync();
+            return results;
         }
     }
 }
