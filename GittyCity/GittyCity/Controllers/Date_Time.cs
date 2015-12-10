@@ -13,7 +13,7 @@ using System.Threading;
 
 namespace GittyCity.Controllers
 {
-    public class HomeController : Controller
+    public class Date_Time : Controller
     {
         //
         // GET: /Home/
@@ -39,29 +39,29 @@ namespace GittyCity.Controllers
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            Task<List<BsonDocument>> task1 = Task.Run(() => countCollectionRows());
-            task1.Wait();
+            Task<List<BsonDocument>> task2 = Task.Run(() => countCollectionRows());
+            task2.Wait();
             var f = "";
-            var t = task1.Result;
+            var t = task2.Result;
             int count = 0;
-            String[] id = new String[25];
+            String[] date = new String[25];
             foreach (BsonDocument b in t)
             {
                 var a = b.ToJson();
                 f = a.ToString();
-                String tester = f.Remove(0, 11);
-                String verb = tester.Replace('"',' ');
-                verb = verb.Replace('}', ' ');
-                id[count] = verb;
+                //String tester = f.Remove(0, 11);
+                //String verb = tester.Replace('"',' ');
+               // verb = verb.Replace('}', ' ');
+                date[count] = a.ToString();
                 count++;
             }
-            ViewData["id"] = id;
+            ViewData["date"] = date;
             return View();
         }
         public async Task<List<BsonDocument>> countCollectionRows()
         {
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
-            var collection = _database.GetCollection<BsonDocument>("Connection");
+            var collection = _database.GetCollection<BsonDocument>("Event");
             var aggregate = collection.Aggregate().Group(new BsonDocument { { "_id", "$UnitId" }});
             var results = await aggregate.ToListAsync();
             return results;
