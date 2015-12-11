@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Web.UI;
 using System.Diagnostics;
 using System.Threading;
+using Newtonsoft.Json.Linq;
 
 namespace GittyCity.Controllers
 {
@@ -39,25 +40,32 @@ namespace GittyCity.Controllers
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            Task<List<BsonDocument>> task1 = Task.Run(() => countCollectionRows());
-            task1.Wait();
-            var f = "";
-            var t = task1.Result;
-            foreach (BsonDocument b in t)
-            {
-                var a = b.ToJson();
-                f += a.ToString();
-            }
-            ViewBag.test = f;
+            makeIdList();
             return View();
         }
-        public async Task<List<BsonDocument>> countCollectionRows()
+        public async Task<List<BsonDocument>> getMongoBsonList(String collectionName)
         {
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
-            var collection = _database.GetCollection<BsonDocument>("Monitoring");
+            var collection = _database.GetCollection<BsonDocument>(collectionName);
             var aggregate = collection.Aggregate().Group(new BsonDocument { { "_id", "$UnitId" }});
             var results = await aggregate.ToListAsync();
             return results;
+        }
+        public void makeIdList()
+        {
+            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Monitoring"));
+            idTask.Wait();
+            var listBuilder = "";
+            var taskResult = idTask.Result;
+            foreach (BsonDocument bDoc in taskResult)
+            {
+                var jsonDoc = bDoc.ToJson();
+                var jo = JObject.Parse(jsonDoc);
+                var id = jo["_id"].ToString();
+                listBuilder += "<div class='option'>" + id + "</div>";
+            }
+            var htmlResult = new HtmlString(listBuilder);
+            ViewBag.test = htmlResult;
         }
     }
 }

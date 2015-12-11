@@ -126,9 +126,12 @@ nav *{
 .option{
     display: inline-flex;
     justify-content: space-between;
-    width: 20%;
-    padding: 1em;
-    margin: 0px auto 0px auto;
+    font-size: 30px;
+    letter-spacing: 2px;
+    font-weight: bold;
+    width: 32%;
+    padding: 0.4em;
+    margin: 0.5em auto 0px auto;
     border-radius: 10px;
     background-color: #383838;
     border: 2px solid #272727;
