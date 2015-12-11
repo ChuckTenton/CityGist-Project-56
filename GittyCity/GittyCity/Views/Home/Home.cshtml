@@ -67,14 +67,7 @@
                         <h1>Unit ID</h1>
                         <br />
                         <div id="unitID_options" class="cat_options">
-                            <div class="option">
-                                    <select>
-                                        @foreach (string id in ViewData["id"] as string[])
-                                        {
-                                            <option>@id</option>
-                                        }
-                                    </select>
-                            </div>
+                            @ViewBag.id
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_dateTime">
@@ -82,7 +75,7 @@
                         <br />
                         <div id="dateTime_options" class="cat_options">
                             <div class="option">
-                                
+                                @ViewBag.date
                             </div>
                             <div class="option">
                                 Tijd <input type="text" />
@@ -134,8 +127,7 @@
                             </div>
                         </div>
                     </section>
-                </section>     
-                          
+                </section>            
             </div>          
         </section>
         <script>
