@@ -41,19 +41,20 @@ namespace GittyCity.Controllers
         {
             ViewBag.Message = "Your contact page.";
             makeIdList();
+            getDateIntoList();
             return View();
         }
-        public async Task<List<BsonDocument>> getMongoBsonList(String collectionName)
+        public async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
         {
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(collectionName);
-            var aggregate = collection.Aggregate().Group(new BsonDocument { { "_id", "$UnitId" }});
+            var aggregate = collection.Aggregate().Group(new BsonDocument { { "_id", selectItemWanted}});
             var results = await aggregate.ToListAsync();
             return results;
         }
         public void makeIdList()
         {
-            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Connection"));
+            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Monitoring", "$UnitId"));
             idTask.Wait();
             var listBuilder = "";
             var taskResult = idTask.Result;
@@ -65,7 +66,24 @@ namespace GittyCity.Controllers
                 listBuilder += "<div class='option'>" + id + "</div>";
             }
             var htmlResult = new HtmlString(listBuilder);
-            ViewBag.test = htmlResult;
+            ViewBag.id = htmlResult;
+        }
+        public void getDateIntoList()
+        {
+            Task<List<BsonDocument>> dateTask = Task.Run(() => getMongoBsonList("Event", "$Date"));
+            dateTask.Wait();
+            var optionBuilder = "";
+            var taskResult = dateTask.Result;
+            foreach (BsonDocument bdoc in taskResult)
+            {
+                var jsonDoc = bdoc.ToJson();
+                var js = JObject.Parse(jsonDoc);
+                var date = js["_id"].ToString();
+                optionBuilder += "<option>" + date + "</option>";
+            }
+            var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
+            var htmlResult = new HtmlString(fullSelectBuilder);
+            ViewBag.date = htmlResult;
         }
     }
 }
