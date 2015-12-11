@@ -42,6 +42,7 @@ namespace GittyCity.Controllers
             ViewBag.Message = "Your contact page.";
             makeIdList();
             getDateIntoList();
+            timeToShow();
             return View();
         }
         public async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
@@ -54,7 +55,7 @@ namespace GittyCity.Controllers
         }
         public void makeIdList()
         {
-            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Monitoring", "$UnitId"));
+            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Connection", "$UnitId"));
             idTask.Wait();
             var listBuilder = "";
             var taskResult = idTask.Result;
@@ -84,6 +85,25 @@ namespace GittyCity.Controllers
             var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
             var htmlResult = new HtmlString(fullSelectBuilder);
             ViewBag.date = htmlResult;
+        }
+        public void timeToShow()
+        {
+            var timeCounter = "";
+            int time =0;
+            while( time <= 24)
+            {
+                if (time < 10) {
+                    timeCounter += "<option>0" + time + ":00</option>";
+                    time++;
+                }
+            else{
+                timeCounter += "<option>" + time + ":00</option>";
+                time++;
+            }
+            }
+            var timeFull = new HtmlString( "<select>" + timeCounter + "</select>");
+            Console.WriteLine(timeFull);
+            ViewBag.time = timeFull;
         }
     }
 }
