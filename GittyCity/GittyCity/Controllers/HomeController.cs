@@ -61,9 +61,7 @@ namespace GittyCity.Controllers
             var taskResult = idTask.Result;
             foreach (BsonDocument bDoc in taskResult)
             {
-                var jsonDoc = bDoc.ToJson();
-                var jo = JObject.Parse(jsonDoc);
-                var id = jo["_id"].ToString();
+                var id = bDoc["_id"].ToString();
                 listBuilder += "<div class='option'>" + id + "</div>";
             }
             var htmlResult = new HtmlString(listBuilder);
