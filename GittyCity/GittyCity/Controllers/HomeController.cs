@@ -45,24 +45,30 @@ namespace GittyCity.Controllers
             return View();
         }
         public async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
-        {
+        {            
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(collectionName);
-            var aggregate = collection.Aggregate().Group(new BsonDocument { { "_id", selectItemWanted}});
-            var results = await aggregate.ToListAsync();
+            var match = new BsonDocument();
+            var group = new BsonDocument
+            {
+                {"_id", "$"+ selectItemWanted},
+                {"num", new BsonDocument {{"$sum", 1}}}
+            };
+            var sort = new BsonDocument {{"num", -1}};
+            var aggregate = collection.Aggregate().Match(match).Group(group);
+            var results = aggregate.ToListAsync().Result;
+            results.Sort();
             return results;
         }
         public void makeIdList()
         {
-            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Monitoring", "$UnitId"));
+            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Connection", "UnitId"));
             idTask.Wait();
             var listBuilder = "";
             var taskResult = idTask.Result;
             foreach (BsonDocument bDoc in taskResult)
             {
-                var jsonDoc = bDoc.ToJson();
-                var jo = JObject.Parse(jsonDoc);
-                var id = jo["_id"].ToString();
+                var id = bDoc["_id"].ToString();
                 listBuilder += "<div class='option'>" + id + "</div>";
             }
             var htmlResult = new HtmlString(listBuilder);
@@ -70,7 +76,7 @@ namespace GittyCity.Controllers
         }
         public void getDateIntoList()
         {
-            Task<List<BsonDocument>> dateTask = Task.Run(() => getMongoBsonList("Event", "$Date"));
+            Task<List<BsonDocument>> dateTask = Task.Run(() => getMongoBsonList("Event", "Date"));
             dateTask.Wait();
             var optionBuilder = "";
             var taskResult = dateTask.Result;
