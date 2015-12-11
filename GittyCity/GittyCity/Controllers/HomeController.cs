@@ -42,6 +42,7 @@ namespace GittyCity.Controllers
             ViewBag.Message = "Your contact page.";
             makeIdList();
             getDateIntoList();
+            getTimeToPage();
             return View();
         }
         public async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
@@ -90,6 +91,26 @@ namespace GittyCity.Controllers
             var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
             var htmlResult = new HtmlString(fullSelectBuilder);
             ViewBag.date = htmlResult;
+        }
+        public void getTimeToPage()
+        {
+            int time = 0;
+            var timeMaker = "";
+            while (time < 24)
+            {
+                if (time < 10)
+                {
+                    timeMaker += "<Option>0" + time + ":00</option>";
+                    time++;
+                }
+                else
+                {
+                    timeMaker += "<option>" + time + ":00</option>";
+                    time++;
+                }
+            }
+            var timeTotal = new HtmlString("<select>" + timeMaker + "</select>");
+            ViewBag.time = timeTotal;
         }
     }
 }
