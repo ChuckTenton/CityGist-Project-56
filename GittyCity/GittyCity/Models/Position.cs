@@ -6,15 +6,14 @@ using System.Web;
 
 namespace GittyCity.Models
 {
-    public class Position
-    {
-        public interface IRijksdriehoekComponent
-        {
-            string ConvertToLatLong(double x, double y);
-        }
 
-        public class RijksdriehoekComponent : IRijksdriehoekComponent
-        {
+    public interface IRijksdriehoekComponent
+    {
+        string ConvertToLatLong(double x, double y);
+    }
+
+    public class Position : IRijksdriehoekComponent
+    {
             public string ConvertToLatLong(double x, double y)
             {
                 string result = null;
@@ -73,5 +72,4 @@ namespace GittyCity.Models
                 return result;
             }
         }
-    }
 }
