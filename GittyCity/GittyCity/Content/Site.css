@@ -48,7 +48,7 @@ nav *{
 #content{
     background-color: #383838;
     width: 100vw;
-    min-height: 81vh;
+    min-height: 200vh;
     color: white;
     padding-top: 3vh;
 }
@@ -126,7 +126,7 @@ nav *{
 .option{
     display: inline-flex;
     justify-content: space-between;
-    font-size: 30px;
+    font-size: 24px;
     letter-spacing: 2px;
     font-weight: bold;
     width: 32%;

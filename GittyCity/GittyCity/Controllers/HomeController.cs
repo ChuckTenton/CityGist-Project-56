@@ -53,7 +53,7 @@ namespace GittyCity.Controllers
         }
         public void makeIdList()
         {
-            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Monitoring"));
+            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Connection"));
             idTask.Wait();
             var listBuilder = "";
             var taskResult = idTask.Result;
