@@ -42,6 +42,7 @@ namespace GittyCity.Controllers
             ViewBag.Message = "Your contact page.";
             makeIdList();
             getDateIntoList();
+            getPositionToPage();
             getTimeToPage();
             return View();
         }
@@ -91,6 +92,23 @@ namespace GittyCity.Controllers
             var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
             var htmlResult = new HtmlString(fullSelectBuilder);
             ViewBag.date = htmlResult;
+        }
+        public void getPositionToPage()
+        {
+            Task<List<BsonDocument>> positionTask = Task.Run(() => getMongoBsonList("Position", "Rdx,Rdy"));
+            positionTask.Wait();
+            var optionBuilder = "";
+            var taskResult = positionTask.Result;
+            foreach (BsonDocument bdoc in taskResult)
+            {
+                var jsonDoc = bdoc.ToJson();
+                var js = JObject.Parse(jsonDoc);
+                var position = js["_id"].ToString();
+                optionBuilder += "<option>" + position + "</option>";
+            }
+            var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
+            var htmlResult = new HtmlString(fullSelectBuilder);
+            ViewBag.position = htmlResult;
         }
         public void getTimeToPage()
         {
