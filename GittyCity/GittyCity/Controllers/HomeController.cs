@@ -46,7 +46,7 @@ namespace GittyCity.Controllers
             return View();
         }
         public async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
-        {            
+        {
             IMongoDatabase _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(collectionName);
             var match = new BsonDocument();
@@ -55,7 +55,7 @@ namespace GittyCity.Controllers
                 {"_id", "$"+ selectItemWanted},
                 {"num", new BsonDocument {{"$sum", 1}}}
             };
-            var sort = new BsonDocument {{"num", -1}};
+            var sort = new BsonDocument { { "num", -1 } };
             var aggregate = collection.Aggregate().Match(match).Group(group);
             var results = aggregate.ToListAsync().Result;
             results.Sort();
@@ -70,7 +70,7 @@ namespace GittyCity.Controllers
             foreach (BsonDocument bDoc in taskResult)
             {
                 var id = bDoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + id + "</div>";
+                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' onclick='checkbox_tick(this)'></div></div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             ViewBag.id = htmlResult;
@@ -100,7 +100,7 @@ namespace GittyCity.Controllers
             {
                 if (time < 10)
                 {
-                    timeMaker += "<Option>0" + time + ":00</option>";
+                    timeMaker += "<option>0" + time + ":00</option>";
                     time++;
                 }
                 else
