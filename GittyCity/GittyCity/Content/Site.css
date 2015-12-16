@@ -48,7 +48,7 @@ nav *{
 #content{
     background-color: #383838;
     width: 100vw;
-    min-height: 200vh;
+    min-height: 100vh;
     color: white;
     padding-top: 3vh;
 }
@@ -106,7 +106,7 @@ nav *{
 .con_category{
     display: inline-block;
     margin: 0px 20vw 0px 0px;
-    padding: 1vw;
+    padding: 1vh 1vw;
     width: 78vw; 
     border-radius: 20px; 
 }
@@ -134,4 +134,20 @@ nav *{
     border-radius: 10px;
     background-color: #383838;
     border: 2px solid #272727;
+}
+.option_checkbox{
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    border: 2px solid #272727;
+    background-color: #424242;
+    transition: background-color 0.4s;
+    background-size: contain;
+}
+.option_checkbox:hover{
+    background-color: #5B5B5B;
+    cursor: pointer;
+}
+#empty_con{
+    width:100%;
 }

@@ -29,6 +29,25 @@
                 var main = document.getElementById("con_all");
                 main.style.left = position + "vw";
             }
+            function inflate_space() {
+                var screen_height = document.documentElement.clientHeight;
+                var screen_width = document.documentElement.clientWidth;
+                var main_elems = document.getElementsByClassName("con_category");
+                var max_height = 0;
+                for (i = 0; i < main_elems.length; i++) {
+                    var pork_height = document.getElementsByClassName("con_category")[i].offsetHeight;
+                    if (pork_height > max_height) { max_height = pork_height; }
+                }
+                pix_amt_sh = screen_height / 100;
+                rel_height = Math.ceil(max_height / pix_amt_sh);
+                document.getElementById("empty_con").style.height = rel_height + "vh";
+            }
+            function checkbox_tick(elem) {
+                if (elem.style.backgroundImage != 'url("/Images/sprite45986.png")') {
+                    elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
+                }
+                else { elem.style.backgroundImage = "none";}                
+            }
         </script>
     </head>
     <body>
@@ -133,10 +152,20 @@
                         </div>
                     </section>
                 </section> 
+                <section id="empty_con">
+
+                </section>
+                <section id="summary">
+                    
+                </section>
             </div>          
         </section>
         <script>
             colorCats();
+            setTimeout(f, 0);
+            function f() {
+                inflate_space();
+            }
         </script>
     </body>
 </html>
