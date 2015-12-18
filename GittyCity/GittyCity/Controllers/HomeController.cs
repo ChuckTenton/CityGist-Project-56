@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using GittyCity.Models;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System.Threading.Tasks;
-using System.Web.UI;
-using System.Diagnostics;
-using System.Threading;
-using Newtonsoft.Json.Linq;
-
 namespace GittyCity.Controllers
 {
     public class HomeController : Controller
