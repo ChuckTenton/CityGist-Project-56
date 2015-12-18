@@ -12,7 +12,7 @@ namespace GittyCity.Models
     {
         public static async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
         {
-            IMongoDatabase _database = DatabaseConnection.getMongoDB();
+            var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(collectionName);
             var match = new BsonDocument();
             var group = new BsonDocument

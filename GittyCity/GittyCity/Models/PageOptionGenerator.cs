@@ -12,7 +12,7 @@ namespace GittyCity.Models
     {
         public static async Task<HtmlString> makeIdList()
         {
-            List<BsonDocument> IdList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Connection", "UnitId"));
+            var IdList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Connection", "UnitId"));
             var listBuilder = "";
             foreach (BsonDocument bDoc in IdList)
             {
@@ -24,7 +24,7 @@ namespace GittyCity.Models
         }
         public static async Task<HtmlString> makeDateList()
         {
-            List<BsonDocument> dateList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Event", "Date"));
+            var dateList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Event", "Date"));
             var optionBuilder = "";
             foreach (BsonDocument bdoc in dateList)
             {

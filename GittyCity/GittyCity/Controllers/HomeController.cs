@@ -22,7 +22,7 @@ namespace GittyCity.Controllers
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            Task<List<HtmlString>> h = Task.Run(() => ViewBagFiller());
+            var h = Task.Run(() => ViewBagFiller());
             var g = h.Result;
             ViewBag.id = g[0];
             ViewBag.date = g[1];
@@ -30,8 +30,8 @@ namespace GittyCity.Controllers
         }
         public async Task<List<HtmlString>> ViewBagFiller()
         {
-            HtmlString id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
-            HtmlString date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
+            var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
+            var date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
             viewBagList.Add(id_list);
             viewBagList.Add(date_list);
             return viewBagList;

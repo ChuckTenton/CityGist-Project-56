@@ -106,7 +106,7 @@ nav *{
 .con_category{
     display: inline-block;
     margin: 0px 20vw 0px 0px;
-    padding: 1vh 1vw;
+    padding: 1vh 1vw 1em 1vw;
     width: 78vw; 
     border-radius: 20px; 
 }
