@@ -70,7 +70,7 @@ namespace GittyCity.Controllers
                 var date = js["_id"].ToString();
                 optionBuilder += "<option>" + date + "</option>";
             }
-            var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
+            var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></div>";
             var htmlResult = new HtmlString(fullSelectBuilder);
             ViewBag.date = htmlResult;
         }
@@ -87,7 +87,7 @@ namespace GittyCity.Controllers
                 var position = js["_id"].ToString();
                 optionBuilder += "<option>" + position + "</option>";
             }
-            var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></dev>";
+            var fullSelectBuilder = "<select>" + optionBuilder + "</select>";
             var htmlResult = new HtmlString(fullSelectBuilder);
             ViewBag.position = htmlResult;
         }
