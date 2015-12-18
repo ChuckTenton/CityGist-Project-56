@@ -10,12 +10,11 @@
                 [1, "dateTime", "hsla(51, 100%, 50% ,0.20)"],
                 [2, "location", "hsla(102, 100%, 50%, 0.20)"],
                 [3, "engineStatus", "hsla(153, 100%, 50%, 0.20)"],
-                [4, "carInfo", "hsla(204, 100%, 50%, 0.20)"],
-                [5, "boxInfo", "hsla(255, 100%, 50%, 0.20)"],
-                [6, "GPS", "hsla(306, 100%, 50%, 0.20)"]
+                [4, "boxInfo", "hsla(255, 100%, 50%, 0.20)"],
+                [5, "GPS", "hsla(306, 100%, 50%, 0.20)"]
             ];
             function colorCats() {
-                for (i = 0; i <= 6; i++) {
+                for (i = 0; i <= 5; i++) {
                     part_id = tabs[i][1];
                     full_id = "con_category_" + part_id;
                     elem = document.getElementById(full_id);
@@ -75,9 +74,8 @@
                     <div onclick="tabSwitch(1);" id="nav_category_dateTime" class="nav_category_tab">Datum en Tijd</div>
                     <div onclick="tabSwitch(2);" id="nav_category_location" class="nav_category_tab">Locatie</div>
                     <div onclick="tabSwitch(3);" id="nav_category_engineStatus" class="nav_category_tab">Motor en CityBox</div>
-                    <div onclick="tabSwitch(4);" id="nav_category_carInfo" class="nav_category_tab">Toestel Info</div>
-                    <div onclick="tabSwitch(5);" id="nav_category_boxInfo" class="nav_category_tab">CityBox Info</div>
-                    <div onclick="tabSwitch(6);" id="nav_category_GPS" class="nav_category_tab">GPS Info</div>
+                    <div onclick="tabSwitch(4);" id="nav_category_boxInfo" class="nav_category_tab">CityBox Info</div>
+                    <div onclick="tabSwitch(5);" id="nav_category_GPS" class="nav_category_tab">GPS Info</div>
                 </nav>
                 <br />
                 <section id="con_all">
@@ -89,6 +87,9 @@
                         <div id="unitID_options" class="cat_options">
                             @ViewBag.id
                         </div>
+                        <div id="unitID_end" class="cat_end">
+                            Next <div class="arrow"></div>
+                        </div>
                     </section><!--
                  --><section class="con_category" id="con_category_dateTime">
                         <h1>Date and Time</h1>
@@ -96,9 +97,9 @@
                         <div id="dateTime_options" class="cat_options">
                             <div class="option">
                                 @ViewBag.date
-                                <h1>Begin Time</h1>
-                                <br />
-                                <h1>End Time</h1>
+                            </div>
+                            <div id="dateTime_end" class="cat_end">
+                                Next <div class="arrow"></div>
                             </div>
                         </div>
                     </section><!--
@@ -111,6 +112,9 @@
                                 <div class='option_checkbox' onclick='checkbox_tick(this)'>
                                 </div>
                             </div>
+                            <div id="position_end" class="cat_end">
+                                Next <div class="arrow"></div>
+                            </div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_engineStatus">
@@ -120,14 +124,8 @@
                             <div class="option">
                                 Optie <input type="text" />
                             </div>
-                        </div>
-                    </section><!--
-                 --><section class="con_category" id="con_category_carInfo">
-                        <h1>Car Info</h1>
-                        <br />
-                        <div id="carInfo_options" class="cat_options">
-                            <div class="option">
-                                Optie <input type="text" />
+                            <div id="engineStatus_end" class="cat_end">
+                                Next <div class="arrow"></div>
                             </div>
                         </div>
                     </section><!--
@@ -138,24 +136,28 @@
                             <div class="option">
                                 Optie <input type="text" />
                             </div>
+                            <div id="boxInfo_end" class="cat_end">
+                                Next <div class="arrow"></div>
+                            </div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_GPS">
                         <h1>GPS</h1>
                         <br />
                         <div id="GPS_options" class="cat_options">
-                            <div class="option">
-                                Optie <input type="text" />
-                            </div>
+                            @ViewBag.misc
+                        </div>
+                        <div id="GPS_end" class="cat_end">
+                            Next <div class="arrow"></div>
                         </div>
                     </section>
-                </section> 
-                <section id="empty_con">
+                </section>
+            <section id="empty_con">
 
-                </section>
-                <section id="summary">
+            </section>
+            <section id="summary">
                     
-                </section>
+            </section>
             </div>          
         </section>
         <script>

@@ -17,14 +17,17 @@ namespace GittyCity.Controllers
             var g = h.Result;
             ViewBag.id = g[0];
             ViewBag.date = g[1];
+            ViewBag.misc = g[2];
             return View();
         }
         public async Task<List<HtmlString>> ViewBagFiller()
         {
             var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
             var date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
+            var misc_list = await Task.Run(() => PageOptionGenerator.makeMiscList().Result);
             viewBagList.Add(id_list);
             viewBagList.Add(date_list);
+            viewBagList.Add(misc_list);
             return viewBagList;
         }
     }
