@@ -13,7 +13,7 @@ namespace GittyCity.Models
             foreach (BsonDocument bDoc in IdList)
             {
                 var id = bDoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' value = " + id + " onclick='checkbox_tick(this)'></div></div>";
+                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' value = " + id + " onclick='checkbox_tick(this)' id></div></div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
