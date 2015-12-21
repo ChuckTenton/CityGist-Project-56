@@ -106,7 +106,7 @@ nav *{
 .con_category{
     display: inline-block;
     margin: 0px 20vw 0px 0px;
-    padding: 1vh 1vw;
+    padding: 1vh 1vw 1em 1vw;
     width: 78vw; 
     border-radius: 20px; 
 }
@@ -125,10 +125,12 @@ nav *{
 .option{
     display: inline-flex;
     justify-content: space-between;
-    font-size: 24px;
+    align-items: center;
+    font-size: 16px;
     letter-spacing: 2px;
     font-weight: bold;
-    width: 32%;
+    width: 40%;
+    line-height: 50%;
     padding: 0.4em;
     margin: 0.5em auto 0px auto;
     border-radius: 10px;
@@ -150,4 +152,20 @@ nav *{
 }
 #empty_con{
     width:100%;
+}
+.con_end{
+    width: 25%;
+    height: 1.4em;
+    margin: 20px auto 10px auto;
+    border-radius: 10px;
+    background-color: #383838;
+}
+.arrow{
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    border: 2px solid #272727;
+    background-color: #424242;
+    transition: background-color 0.4s;
+    background-size: contain;
 }

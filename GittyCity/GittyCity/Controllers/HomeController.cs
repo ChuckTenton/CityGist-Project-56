@@ -1,115 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
 using System.Web.Mvc;
 using GittyCity.Models;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using System.Threading.Tasks;
-using System.Web.UI;
-using System.Diagnostics;
-using System.Threading;
-using Newtonsoft.Json.Linq;
-
 namespace GittyCity.Controllers
 {
     public class HomeController : Controller
     {
         //
         // GET: /Home/
+        private static List<HtmlString> viewBagList = new List<HtmlString>();
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
-            makeIdList();
-            getDateIntoList();
-            getPositionToPage();
-            getTimeToPage();
+            var h = Task.Run(() => ViewBagFiller());
+            var g = h.Result;
+            ViewBag.id = g[0];
+            ViewBag.date = g[1];
+            ViewBag.misc = g[2];
             return View();
         }
-        public async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
+        public async Task<List<HtmlString>> ViewBagFiller()
         {
-            IMongoDatabase _database = DatabaseConnection.getMongoDB();
-            var collection = _database.GetCollection<BsonDocument>(collectionName);
-            var match = new BsonDocument();
-            var group = new BsonDocument
-            {
-                {"_id", "$"+ selectItemWanted},
-                {"num", new BsonDocument {{"$sum", 1}}}
-            };
-            var sort = new BsonDocument { { "num", -1 } };
-            var aggregate = collection.Aggregate().Match(match).Group(group);
-            var results = aggregate.ToListAsync().Result;
-            results.Sort();
-            return results;
-        }
-        public void makeIdList()
-        {
-            Task<List<BsonDocument>> idTask = Task.Run(() => getMongoBsonList("Connection", "UnitId"));
-            idTask.Wait();
-            var listBuilder = "";
-            var taskResult = idTask.Result;
-            foreach (BsonDocument bDoc in taskResult)
-            {
-                var id = bDoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' onclick='checkbox_tick(this)'></div></div>";
-            }
-            var htmlResult = new HtmlString(listBuilder);
-            ViewBag.id = htmlResult;
-        }
-        public void getDateIntoList()
-        {
-            Task<List<BsonDocument>> dateTask = Task.Run(() => getMongoBsonList("Event", "Date"));
-            dateTask.Wait();
-            var optionBuilder = "";
-            var taskResult = dateTask.Result;
-            foreach (BsonDocument bdoc in taskResult)
-            {
-                var jsonDoc = bdoc.ToJson();
-                var js = JObject.Parse(jsonDoc);
-                var date = js["_id"].ToString();
-                optionBuilder += "<option>" + date + "</option>";
-            }
-            var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></div>";
-            var htmlResult = new HtmlString(fullSelectBuilder);
-            ViewBag.date = htmlResult;
-        }
-        public void getPositionToPage()
-        {
-            Task<List<BsonDocument>> positionTask = Task.Run(() => getMongoBsonList("Position", "Rdx,Rdy"));
-            positionTask.Wait();
-            var optionBuilder = "";
-            var taskResult = positionTask.Result;
-            foreach (BsonDocument bdoc in taskResult)
-            {
-                var jsonDoc = bdoc.ToJson();
-                var js = JObject.Parse(jsonDoc);
-                var position = js["_id"].ToString();
-                optionBuilder += "<option>" + position + "</option>";
-            }
-            var fullSelectBuilder = "<select>" + optionBuilder + "</select>";
-            var htmlResult = new HtmlString(fullSelectBuilder);
-            ViewBag.position = htmlResult;
-        }
-        public void getTimeToPage()
-        {
-            int time = 0;
-            var timeMaker = "";
-            while (time < 24)
-            {
-                if (time < 10)
-                {
-                    timeMaker += "<option>0" + time + ":00</option>";
-                    time++;
-                }
-                else
-                {
-                    timeMaker += "<option>" + time + ":00</option>";
-                    time++;
-                }
-            }
-            var timeTotal = new HtmlString("<select>" + timeMaker + "</select>");
-            ViewBag.time = timeTotal;
+            var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
+            var date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
+            var misc_list = await Task.Run(() => PageOptionGenerator.makeMiscList().Result);
+            viewBagList.Add(id_list);
+            viewBagList.Add(date_list);
+            viewBagList.Add(misc_list);
+            return viewBagList;
         }
     }
 }

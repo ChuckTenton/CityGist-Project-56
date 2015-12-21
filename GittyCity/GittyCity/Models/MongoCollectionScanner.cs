@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace GittyCity.Models
     {
         public static async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
         {
-            IMongoDatabase _database = DatabaseConnection.getMongoDB();
+            var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(collectionName);
             var match = new BsonDocument();
             var group = new BsonDocument
