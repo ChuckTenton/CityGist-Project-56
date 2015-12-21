@@ -41,9 +41,14 @@
                 rel_height = Math.ceil(max_height / pix_amt_sh);
                 document.getElementById("empty_con").style.height = rel_height + "vh";
             }
+            var idCollection = [];
             function checkbox_tick(elem) {
+                var counter = idCollection.length;
                 if (elem.style.backgroundImage != 'url("/Images/sprite45986.png")') {
                     elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
+                    idCollection[counter] = elem;
+                    var x = document.getElementById(elem).value;
+                    document.write(x);
                 }
                 else { elem.style.backgroundImage = "none";}                
             }
