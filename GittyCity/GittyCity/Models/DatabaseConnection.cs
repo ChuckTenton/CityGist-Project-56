@@ -11,7 +11,6 @@ namespace GittyCity.Models
     {
         protected static IMongoClient _client;
         protected static IMongoDatabase _database;
-
         public static IMongoDatabase getMongoDB()
         {
             _client = new MongoClient("mongodb://145.24.222.168/CityGis"); //Connection string gaat hier
