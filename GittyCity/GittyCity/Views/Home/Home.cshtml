@@ -44,10 +44,11 @@
             var idCollection = [];
             function checkbox_tick(elem) {
                 var counter = idCollection.length;
+                var x = elem.valueOf();
                 if (elem.style.backgroundImage != 'url("/Images/sprite45986.png")') {
                     elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
                     idCollection[counter] = elem;
-                    var x = document.getElementById(elem).value;
+                   
                     document.write(x);
                 }
                 else { elem.style.backgroundImage = "none";}                
