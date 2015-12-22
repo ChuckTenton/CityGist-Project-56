@@ -42,16 +42,43 @@
                 document.getElementById("empty_con").style.height = rel_height + "vh";
             }
             var idCollection = [];
-            function checkbox_tick(elem) {
+            var miscCollection = [];
+            function checkbox_tick(elem, arr) {
                 var counter = idCollection.length;
-                var x = elem.valueOf();
+                var x = elem.getAttribute("value");
                 if (elem.style.backgroundImage != 'url("/Images/sprite45986.png")') {
                     elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
-                    idCollection[counter] = elem;
-                   
-                    document.write(x);
+                    switch (arr) {
+                        case "id": {
+                            idCollection.push(x);
+                            break;
+                        }
+                        case "misc": {
+                            miscCollection.push(x);
+                            break;
+                        }
+                            
+                    }
                 }
-                else { elem.style.backgroundImage = "none";}                
+                else {
+                    elem.style.backgroundImage = "none";
+                    switch (arr) {
+                        case "id": {
+                            var index = idCollection.indexOf(x);
+                            if (index >= 0) {
+                                idCollection.splice(index, 1);
+                            }
+                            break;
+                        }
+                        case "misc": {
+                            var index = miscCollection.indexOf(x);
+                            if (index >= 0) {
+                                miscCollection.splice(index, 1);
+                            }
+                            break;
+                        }
+                    }
+                }
             }
         </script>
     </head>
@@ -162,7 +189,7 @@
 
             </section>
             <section id="summary">
-                    
+
             </section>
             </div>          
         </section>

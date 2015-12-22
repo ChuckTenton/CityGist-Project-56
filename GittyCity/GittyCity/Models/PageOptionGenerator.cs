@@ -13,7 +13,7 @@ namespace GittyCity.Models
             foreach (BsonDocument bDoc in IdList)
             {
                 var id = bDoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' value = " + id + " onclick='checkbox_tick(this)' ></div></div>";
+                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' value = " + id + " onclick='checkbox_tick(this,\"id\")' ></div></div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
@@ -25,7 +25,7 @@ namespace GittyCity.Models
             foreach (BsonDocument bdoc in dateList)
             {
                 var date = bdoc["_id"].ToString();
-                optionBuilder += "<option>" + date + "</option>";
+                optionBuilder += "<option value = " + date + ">" + date + "</option>";
             }
             var fullSelectBuilder = "<div><select>" + optionBuilder + "</select></div>";
             var htmlResult = new HtmlString(fullSelectBuilder);
@@ -39,7 +39,7 @@ namespace GittyCity.Models
             foreach (BsonDocument bdoc in miscList)
             {
                 var misc = bdoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + misc + "<div class='option_checkbox' onclick='checkbox_tick(this)'></div></div>";
+                listBuilder += "<div class='option'>" + misc + "<div value = " + misc + " class='option_checkbox' onclick='checkbox_tick(this,\"misc\")'></div></div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
