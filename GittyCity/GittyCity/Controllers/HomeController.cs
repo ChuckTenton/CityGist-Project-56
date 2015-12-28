@@ -3,6 +3,10 @@ using System.Web;
 using System.Web.Mvc;
 using GittyCity.Models;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Web.Services;
+using System;
+
 namespace GittyCity.Controllers
 {
     public class HomeController : Controller
@@ -29,6 +33,12 @@ namespace GittyCity.Controllers
             viewBagList.Add(date_list);
             viewBagList.Add(misc_list);
             return viewBagList;
+        }
+        public ActionResult UnitId(String a)
+        {
+            Console.WriteLine("Dit Werkt");
+            Debug.WriteLine("dit werkt niet");
+            return View(a);
         }
     }
 }

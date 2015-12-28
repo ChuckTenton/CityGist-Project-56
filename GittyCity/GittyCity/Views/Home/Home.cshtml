@@ -20,7 +20,7 @@
                     elem = document.getElementById(full_id);
                     elem.style.backgroundColor = tabs[i][2];
                 }
-            }            
+            }
             function tabSwitch(tab_id) {
                 var horiz_position = -tab_id * 100;
                 var left_margin = 10;
@@ -41,7 +41,7 @@
                 rel_height = Math.ceil(max_height / pix_amt_sh);
                 document.getElementById("empty_con").style.height = rel_height + "vh";
             }
-            var idCollection = [];
+            var idCollection = ["test"];
             var miscCollection = [];
             function checkbox_tick(elem, arr) {
                 var counter = idCollection.length;
@@ -57,7 +57,7 @@
                             miscCollection.push(x);
                             break;
                         }
-                            
+
                     }
                 }
                 else {
@@ -79,6 +79,16 @@
                         }
                     }
                 }
+            }
+            function test() {
+                window.alert("tot hier werkt het");
+                $.ajax({
+                    type: "POST",
+                    url: '/Home/UnitId',
+                    data: { a: "testing" },
+                    success: refreshPage
+                });
+                window.alert("haal dit dan faalt het andere");
             }
         </script>
     </head>
@@ -185,6 +195,7 @@
                         </div>
                     </section>
                 </section>
+                <button onclick="test()">CLICK ME TO TEST</button>
             <section id="empty_con">
 
             </section>
