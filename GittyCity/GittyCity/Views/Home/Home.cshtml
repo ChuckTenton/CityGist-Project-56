@@ -41,7 +41,7 @@
                 rel_height = Math.ceil(max_height / pix_amt_sh);
                 document.getElementById("empty_con").style.height = rel_height + "vh";
             }
-            var idCollection = ["test"];
+            var idCollection = [];
             var miscCollection = [];
             function checkbox_tick(elem, arr) {
                 var counter = idCollection.length;
@@ -81,14 +81,18 @@
                 }
             }
             function test() {
-                window.alert("tot hier werkt het");
-                $.ajax({
-                    type: "POST",
-                    url: '/Home/UnitId',
-                    data: { a: "testing" },
-                    success: refreshPage
-                });
-                window.alert("haal dit dan faalt het andere");
+                var i = 0
+                var idForm = document.createElement("form");
+                idForm.setAttribute('method', "post");
+                while (i < idCollection.length)
+                {
+                    var test = document.createElement("input");
+                    test.setAttribute('type', "label");
+                    test.setAttribute('value', idCollection[i]);
+                    idForm.appendChild(test);
+                    i++;
+                }
+                document.body.appendChild(idForm);
             }
         </script>
     </head>

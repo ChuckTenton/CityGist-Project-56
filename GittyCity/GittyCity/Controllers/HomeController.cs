@@ -34,11 +34,5 @@ namespace GittyCity.Controllers
             viewBagList.Add(misc_list);
             return viewBagList;
         }
-        public ActionResult UnitId(String a)
-        {
-            Console.WriteLine("Dit Werkt");
-            Debug.WriteLine("dit werkt niet");
-            return View(a);
-        }
     }
 }
