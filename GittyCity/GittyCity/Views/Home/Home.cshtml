@@ -4,7 +4,10 @@
         <title>GittyCity</title>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,800,700italic' rel='stylesheet' type='text/css' />
         <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+        <script src="http://maps.googleapis.com/maps/api/js"></script>
+        <script src="~/Scripts/Googlemaps.js">initialize();</script>
         <script type="text/javascript">
+            
             var tabs = [
                 [0, "unitId", "hsla(0, 100%, 50%, 0.20)"],
                 [1, "dateTime", "hsla(51, 100%, 50% ,0.20)"],
@@ -157,6 +160,7 @@
                             <div class="option">
                                 Positie
                                 <div class='option_checkbox' onclick='checkbox_tick(this)'>
+                                    <div id="googleMap" style="width:500px;height:380px;"></div>
                                 </div>
                             </div>
                         </div><!--
