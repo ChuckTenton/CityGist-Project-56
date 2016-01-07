@@ -24,6 +24,18 @@ namespace GittyCity.Controllers
             ViewBag.misc = g[2];
             return View();
         }
+        [HttpPost]
+        public ActionResult Home(FormCollection collection)
+        {
+            ViewBag.testPork = collection["id_0"];
+            ViewBag.Message = "Your contact page.";
+            var h = Task.Run(() => ViewBagFiller());
+            var g = h.Result;
+            ViewBag.id = g[0];
+            ViewBag.date = g[1];
+            ViewBag.misc = g[2];
+            return View();
+        }
         public async Task<List<HtmlString>> ViewBagFiller()
         {
             var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);

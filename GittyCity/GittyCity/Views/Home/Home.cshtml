@@ -84,18 +84,27 @@
                 }
             }
             function test() {
-                var i = 0
-                var idForm = document.createElement("form");
-                idForm.setAttribute('method', "post");
-                while (i < idCollection.length)
-                {
-                    var test = document.createElement("input");
-                    test.setAttribute('type', "label");
-                    test.setAttribute('value', idCollection[i]);
-                    idForm.appendChild(test);
-                    i++;
+                if (idCollection.length > 0){
+                    var i = 0
+                    var idForm = document.createElement("form");
+                    idForm.setAttribute('method', "post");
+                    idForm.setAttribute('action', '/');
+                    idForm.setAttribute('name', 'Jon');
+                    while (i < idCollection.length)
+                    {
+                        var test = document.createElement("input");
+                        test.setAttribute('type', "label");
+                        test.setAttribute('value', idCollection[i]);
+                        test.setAttribute('name', 'id_' + i);
+                        idForm.appendChild(test);
+                        i++;
+                    }
+                    var submit = document.createElement("input");
+                    submit.setAttribute('type', 'submit');
+                    submit.setAttribute('value', 'click');
+                    idForm.appendChild(submit);
+                    document.body.appendChild(idForm);
                 }
-                document.body.appendChild(idForm);
             }
         </script>
     </head>
@@ -195,6 +204,7 @@
                  --><section class="con_category" id="con_category_GPS">
                         <h1>GPS</h1>
                         <br />
+                        @ViewBag.testPork
                         <div id="GPS_options" class="cat_options">
                             @ViewBag.misc
                         </div><!--
