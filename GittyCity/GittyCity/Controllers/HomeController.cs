@@ -29,9 +29,11 @@ namespace GittyCity.Controllers
             var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
             var date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
             var misc_list = await Task.Run(() => PageOptionGenerator.makeMiscList().Result);
+            var pos_list = await Task.Run(() => PageOptionGenerator.makePosList().Result);
             viewBagList.Add(id_list);
             viewBagList.Add(date_list);
             viewBagList.Add(misc_list);
+            viewBagList.Add(pos_list);
             return viewBagList;
         }
     }
