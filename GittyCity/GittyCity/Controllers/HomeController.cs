@@ -3,10 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using GittyCity.Models;
 using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Web.Services;
-using System;
-
 namespace GittyCity.Controllers
 {
     public class HomeController : Controller
@@ -24,28 +20,14 @@ namespace GittyCity.Controllers
             ViewBag.misc = g[2];
             return View();
         }
-        [HttpPost]
-        public ActionResult Home(FormCollection collection)
-        {
-            ViewBag.testPork = collection["id_0"];
-            ViewBag.Message = "Your contact page.";
-            var h = Task.Run(() => ViewBagFiller());
-            var g = h.Result;
-            ViewBag.id = g[0];
-            ViewBag.date = g[1];
-            ViewBag.misc = g[2];
-            return View();
-        }
         public async Task<List<HtmlString>> ViewBagFiller()
         {
             var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
             var date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
             var misc_list = await Task.Run(() => PageOptionGenerator.makeMiscList().Result);
-            var pos_list = await Task.Run(() => PageOptionGenerator.makePosList().Result);
             viewBagList.Add(id_list);
             viewBagList.Add(date_list);
             viewBagList.Add(misc_list);
-            viewBagList.Add(pos_list);
             return viewBagList;
         }
     }
