@@ -176,6 +176,10 @@ nav *{
 }
 #rapport_form input[type^="submit"]{
     order: 999;
+    display: block;
+    margin: 1em auto 1em auto;
+    background-color: #A7A7A7;
+    color: black;
 }
 .cat_end{
     display: flex;    
