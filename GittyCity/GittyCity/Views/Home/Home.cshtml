@@ -44,66 +44,48 @@
                 rel_height = Math.ceil(max_height / pix_amt_sh);
                 document.getElementById("empty_con").style.height = rel_height + "vh";
             }
-            var idCollection = [];
-            var miscCollection = [];
-            function checkbox_tick(elem, arr) {
-                var counter = idCollection.length;
-                var x = elem.getAttribute("value");
+            function checkbox_tick(elem, arr) {     //What happens if you click the checkboxes behind values on-screen
+                var box_value_raw = elem.getAttribute("value");
+                var regx_patt = /([a-z]{2,4})(?=_)/g;
+                regx_patt.lastIndex = 0;
+                var box_category_arr = regx_patt.exec(box_value_raw);
+                var box_category_clean = box_category_arr[0];
+                var box_value_clean = box_value_raw.replace(/([a-z]{2,4})_/, "");
+                var sum_form = document.getElementById("rapport_form");
                 if (elem.style.backgroundImage != 'url("/Images/sprite45986.png")') {
                     elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
-                    switch (arr) {
-                        case "id": {
-                            idCollection.push(x);
-                            break;
-                        }
-                        case "misc": {
-                            miscCollection.push(x);
-                            break;
-                        }
-
+                    var sum_item = document.createElement("input");
+                    sum_item.setAttribute("type", "text");
+                    sum_item.setAttribute("value", box_value_clean);
+                    sum_item.setAttribute("name", box_value_raw);
+                    sum_form.appendChild(sum_item);
+                    var children_amt = sum_form.children.length;
+                    if (children_amt == 1) {
+                        var sum_btn = document.createElement("input");
+                        sum_btn.setAttribute("type", "submit");
+                        sum_btn.setAttribute("name", "submit");
+                        sum_btn.setAttribute("value", "Maak Rapport");
+                        sum_form.appendChild(sum_btn);
                     }
+                    var con = document.getElementById("summary");
+                    con.style.height = "10em";
+                    con.style.width = "78vw";
+                    con.style.padding = "1em";
                 }
                 else {
                     elem.style.backgroundImage = "none";
-                    switch (arr) {
-                        case "id": {
-                            var index = idCollection.indexOf(x);
-                            if (index >= 0) {
-                                idCollection.splice(index, 1);
-                            }
-                            break;
-                        }
-                        case "misc": {
-                            var index = miscCollection.indexOf(x);
-                            if (index >= 0) {
-                                miscCollection.splice(index, 1);
-                            }
-                            break;
+                    sum_children = sum_form.children;
+                    for (i = 0; i < sum_children.length; i++) {
+                        if (sum_children[i].getAttribute("name") == box_value_raw) {
+                            sum_form.removeChild(sum_children[i]);
                         }
                     }
-                }
-            }
-            function test() {
-                if (idCollection.length > 0){
-                    var i = 0
-                    var idForm = document.createElement("form");
-                    idForm.setAttribute('method', "post");
-                    idForm.setAttribute('action', '/');
-                    idForm.setAttribute('name', 'Jon');
-                    while (i < idCollection.length)
-                    {
-                        var test = document.createElement("input");
-                        test.setAttribute('type', "label");
-                        test.setAttribute('value', idCollection[i]);
-                        test.setAttribute('name', 'id_' + i);
-                        idForm.appendChild(test);
-                        i++;
+                    if (sum_children.length == 1) {
+                        var con = document.getElementById("summary");
+                        con.style.height = "0em";
+                        con.style.width = "0vw";
+                        con.style.padding = "0em";
                     }
-                    var submit = document.createElement("input");
-                    submit.setAttribute('type', 'submit');
-                    submit.setAttribute('value', 'click');
-                    idForm.appendChild(submit);
-                    document.body.appendChild(idForm);
                 }
             }
         </script>
@@ -147,7 +129,7 @@
                             @ViewBag.id
                         </div><!--
                         --><div id="unitID_end" class="cat_end">
-                            Next <div class="arrow"></div>
+                            Next <div onclick="tabSwitch(1);" class="arrow"></div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_dateTime">
@@ -159,7 +141,7 @@
                             </div>
                         </div><!--
                         --><div id="dateTime_end" class="cat_end">
-                            Next <div class="arrow"></div>
+                            Next <div onclick="tabSwitch(2);" class="arrow"></div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_location">
@@ -174,7 +156,7 @@
                             </div>
                         </div><!--
                         --><div id="position_end" class="cat_end">
-                            Next <div class="arrow"></div>
+                            Next <div onclick="tabSwitch(3);" class="arrow"></div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_engineStatus">
@@ -186,7 +168,7 @@
                             </div>
                         </div><!--
                         --><div id="engineStatus_end" class="cat_end">
-                            Next <div class="arrow"></div>
+                            Next <div onclick="tabSwitch(4);" class="arrow"></div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_boxInfo">
@@ -198,27 +180,32 @@
                             </div>
                         </div><!--
                         --><div id="boxInfo_end" class="cat_end">
-                            Next <div class="arrow"></div>
+                            Next <div onclick="tabSwitch(5);" class="arrow"></div>
                         </div>
                     </section><!--
                  --><section class="con_category" id="con_category_GPS">
                         <h1>GPS</h1>
                         <br />
-                        @ViewBag.testPork
                         <div id="GPS_options" class="cat_options">
                             @ViewBag.misc
                         </div><!--
                         --><div id="GPS_end" class="cat_end">
-                            Next <div class="arrow"></div>
+                            ↓ Scroll naar beneden als u klaar bent ↓
                         </div>
                     </section>
                 </section>
-                <button onclick="test()">CLICK ME TO TEST</button>
             <section id="empty_con">
 
             </section>
             <section id="summary">
+                <p class="paragraph">
+                    Hier vindt u alles wat u heeft geselecteerd vanuit bovenstaand formulier. Als u tevreden bent over uw selectie, klikt u
+                    op "Maak Rapport".
+                </p>
+                <br />
+                <form name="rapport_form" id="rapport_form" action="/" method="post">
 
+                </form>
             </section>
             </div>          
         </section>
