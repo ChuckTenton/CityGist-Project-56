@@ -44,5 +44,18 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
         }
+
+        public static async Task<HtmlString> makePosList()
+        {
+            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16"));
+            var listBuilder = "";
+            foreach (BsonDocument bdoc in PosList)
+            {
+                var pos = bdoc["_id"].ToString();
+                listBuilder += "<div class='option'>" + pos + "</div>";
+            }
+            var htmlResult = new HtmlString(listBuilder);
+            return htmlResult;
+        }
     }
 }
