@@ -47,7 +47,7 @@ namespace GittyCity.Models
 
         public static async Task<HtmlString> makePosList()
         {
-            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16"));
+            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16",14100071));
             var listBuilder = "";
             foreach (BsonDocument bdoc in PosList)
             {

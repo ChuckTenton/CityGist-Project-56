@@ -18,6 +18,7 @@ namespace GittyCity.Controllers
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
+            ViewBag.pos = g[3];
             return View();
         }
         [HttpPost]
@@ -30,6 +31,7 @@ namespace GittyCity.Controllers
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
+            ViewBag.pos = g[3];
             return View();
         }
         public async Task<List<HtmlString>> ViewBagFiller()
