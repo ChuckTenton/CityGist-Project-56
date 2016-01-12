@@ -51,8 +51,13 @@ namespace GittyCity.Models
             var listBuilder = "";
             foreach (BsonDocument bdoc in PosList)
             {
-                var pos = bdoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + pos + "</div>";
+                var posX = bdoc["Rdx"].ToDouble();
+                var posY = bdoc["Rdy"].ToDouble();
+
+                IRijksdriehoekComponent convert = new Position();
+                var test = convert.ConvertToLatLong(posX, posY);
+
+                listBuilder += "<div onloadstart='initialize(" + test + ")' id='google2' style='width: 500px; height: 380px;'> " + test + "</div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;

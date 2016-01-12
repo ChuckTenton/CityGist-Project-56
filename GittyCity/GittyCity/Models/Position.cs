@@ -52,20 +52,12 @@ namespace GittyCity.Models
                 (-0.00022 * Math.Pow(dX, 2)) +
                 (0.00026 * Math.Pow(dX, 5));
 
-
-            // The city "Amsterfoort" is used as reference "WGS84" coordinate.
             double referenceWgs84X = 52.15517;
             double referenceWgs84Y = 5.387206;
 
             double latitude = referenceWgs84X + (sumN / 3600);
             double longitude = referenceWgs84Y + (sumE / 3600);
 
-            // Input
-            // x = 122202
-            // y = 487250
-            //
-            // Result
-            // "52.372143838117, 4.90559760435224"
             result = string.Format("{0}, {1}",
                 latitude.ToString(CultureInfo.InvariantCulture.NumberFormat),
                 longitude.ToString(CultureInfo.InvariantCulture.NumberFormat));
