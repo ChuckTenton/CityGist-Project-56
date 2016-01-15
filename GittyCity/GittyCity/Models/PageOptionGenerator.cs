@@ -32,36 +32,21 @@ namespace GittyCity.Models
             return htmlResult;
         }
 
-        public static async Task<HtmlString> timeMaker() {
-            var i = 0;
-            var maker = "";
-            while (i < 10)
-            {
-                maker += "<option value = " + i + ">0" + i + ":00</option>";
-                i++;
-            }
-            while (i > 10 && i < 24) {
-                maker += "<option value = " + i + ">" + i + ":00</option>";
-                i++;
-            }
-            var fullTimeMaker = "<div><select>" + maker + "</select></div>";
-            var htmlResult = new HtmlString(fullTimeMaker);
-            return htmlResult;
-        }
-
-        public static async Task<HtmlString> timeMaker2()
+        public static async Task<HtmlString> timeMaker()
         {
             var i = 0;
             var maker = "";
-            while (i < 10)
+            while (i < 24)
             {
-                maker += "<option value = " + i + ">0" + i + ":00</option>";
-                i++;
-            }
-            while (i > 10 && i < 24)
-            {
-                maker += "<option value = " + i + ">" + i + ":00</option>";
-                i++;
+                if (i < 10)
+                {
+                    maker += "<option value = " + i + ">0" + i + ":00</option>";
+                    i++;
+                }
+                else {
+                    maker += "<option value = " + i + ">" + i + ":00</option>";
+                    i++;
+                }
             }
             var fullTimeMaker = "<div><select>" + maker + "</select></div>";
             var htmlResult = new HtmlString(fullTimeMaker);
