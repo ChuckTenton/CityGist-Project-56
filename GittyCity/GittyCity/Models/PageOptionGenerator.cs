@@ -32,6 +32,28 @@ namespace GittyCity.Models
             return htmlResult;
         }
 
+        public static async Task<HtmlString> timeMaker()
+        {
+            var i = 0;
+            var maker = "";
+            while (i < 24)
+            {
+                if (i < 10)
+                {
+                    maker += "<option value = " + i + ">0" + i + ":00</option>";
+                    i++;
+                }
+                else {
+                    maker += "<option value = " + i + ">" + i + ":00</option>";
+                    i++;
+                }
+            }
+            var fullTimeMaker = "<div><select>" + maker + "</select></div>";
+            var htmlResult = new HtmlString(fullTimeMaker);
+            return htmlResult;
+        }
+
+    
         public static async Task<HtmlString> makeMiscList()
         {
             var miscList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Monitoring", "Type"));
@@ -47,12 +69,17 @@ namespace GittyCity.Models
 
         public static async Task<HtmlString> makePosList()
         {
-            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16"));
+            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16",14100071));
             var listBuilder = "";
             foreach (BsonDocument bdoc in PosList)
             {
-                var pos = bdoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + pos + "</div>";
+                var posX = bdoc["Rdx"].ToDouble();
+                var posY = bdoc["Rdy"].ToDouble();
+
+                IRijksdriehoekComponent convert = new Position();
+                var test = convert.ConvertToLatLong(posX, posY);
+
+                listBuilder += "<div onloadstart='initialize(" + test + ")' id='google2' style='width: 500px; height: 380px;'> " + test + "</div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
