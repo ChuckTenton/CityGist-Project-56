@@ -174,7 +174,15 @@ nav *{
     display: flex;
     flex-wrap: wrap;
 }
-#rapport_form input[type^="submit"]{
+#rapport_form [type="text"]{
+    display: block;
+    padding: 0px;
+    margin: 0px;
+    -moz-user-select: none; /* for FireFox */
+    -webkit-user-select: none; /* for Chrome and Safari */
+    user-select: none; /* for future CSS3 compliant browsers */
+}
+#rapport_form [type="submit"]{
     order: 999;
     display: block;
     margin: 1em auto 1em auto;
