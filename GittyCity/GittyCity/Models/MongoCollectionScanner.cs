@@ -25,15 +25,5 @@ namespace GittyCity.Models
             results.Sort();
             return results;
         }
-
-        public static async Task<List<BsonDocument>> getMongoBsonList2(String Time, int id )
-        {
-            var _database = DatabaseConnection.getMongoDB();
-            var collection = _database.GetCollection<BsonDocument>("Position"); ;
-            var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("Time", Time) & builder.Eq("UnitId", id);
-            var results = await collection.Find(filter).ToListAsync();
-            return results;
-        }
     }
 }
