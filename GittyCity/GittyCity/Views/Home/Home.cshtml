@@ -4,8 +4,6 @@
         <title>GittyCity</title>
         <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,800,700italic' rel='stylesheet' type='text/css' />
         <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-        <script src="http://maps.googleapis.com/maps/api/js"></script>
-        <script src="~/Scripts/Googlemaps.js">initialize();</script>
         <script type="text/javascript">
             
             var tabs = [
@@ -13,11 +11,10 @@
                 [1, "dateTime", "hsla(51, 100%, 50% ,0.20)"],
                 [2, "location", "hsla(102, 100%, 50%, 0.20)"],
                 [3, "engineStatus", "hsla(153, 100%, 50%, 0.20)"],
-                [4, "boxInfo", "hsla(255, 100%, 50%, 0.20)"],
-                [5, "GPS", "hsla(306, 100%, 50%, 0.20)"]
+                [4, "GPS_Box", "hsla(255, 100%, 50%, 0.20)"]
             ];
             function colorCats() {
-                for (i = 0; i <= 5; i++) {
+                for (i = 0; i <= 4; i++) {
                     part_id = tabs[i][1];
                     full_id = "con_category_" + part_id;
                     elem = document.getElementById(full_id);
@@ -115,8 +112,7 @@
                     <div onclick="tabSwitch(1);" id="nav_category_dateTime" class="nav_category_tab">Datum en Tijd</div>
                     <div onclick="tabSwitch(2);" id="nav_category_location" class="nav_category_tab">Locatie</div>
                     <div onclick="tabSwitch(3);" id="nav_category_engineStatus" class="nav_category_tab">Motor en CityBox</div>
-                    <div onclick="tabSwitch(4);" id="nav_category_boxInfo" class="nav_category_tab">CityBox Info</div>
-                    <div onclick="tabSwitch(5);" id="nav_category_GPS" class="nav_category_tab">GPS Info</div>
+                    <div onclick="tabSwitch(4);" id="nav_category_GPS_Box" class="nav_category_tab">GPS en Box Info</div>
                 </nav>
                 <br />
                 <section id="con_all">
@@ -150,9 +146,10 @@
                  --><section class="con_category" id="con_category_location">
                         <h1>Location</h1>
                         <br />
-                        <div id="location_options" class="cat_options">                            
-                            @ViewBag.pos
-                            <div id="google" style="width:500px;height:380px;"></div>
+                        <div id="location_options" class="cat_options">                
+                            <div class="option">
+                                Locatie <div class='option_checkbox' value="opt_Positie" onclick='checkbox_tick(this,"none")'></div>
+                            </div>
                         </div><!--
                         --><div id="position_end" class="cat_end">
                             Next <div onclick="tabSwitch(3);" class="arrow"></div>
@@ -163,26 +160,14 @@
                         <br />
                         <div id="engineStatus_options" class="cat_options">
                             <div class="option">
-                                Optie <input type="checkbox" />
+                                Motor Status <div class='option_checkbox' value="opt_MotorStatus" onclick='checkbox_tick(this,"none")'></div>
                             </div>
                         </div><!--
                         --><div id="engineStatus_end" class="cat_end">
                             Next <div onclick="tabSwitch(4);" class="arrow"></div>
                         </div>
                     </section><!--
-                 --><section class="con_category" id="con_category_boxInfo">
-                       <h1>Box Info</h1>
-                        <br />
-                        <div id="boxInfo_options" class="cat_options">
-                            <div class="option">
-                                Optie <input type="text" />
-                            </div>
-                        </div><!--
-                        --><div id="boxInfo_end" class="cat_end">
-                            Next <div onclick="tabSwitch(5);" class="arrow"></div>
-                        </div>
-                    </section><!--
-                 --><section class="con_category" id="con_category_GPS">
+                 --><section class="con_category" id="con_category_GPS_Box">
                         <h1>GPS</h1>
                         <br />
                         <div id="GPS_options" class="cat_options">
