@@ -203,6 +203,7 @@
     <Compile Include="Models\Location.cs" />
     <Compile Include="Models\MongoCollectionScanner.cs" />
     <Compile Include="Models\Monitoring.cs" />
+    <Compile Include="Models\RaportMaker.cs" />
     <Compile Include="Models\MyAsyncTask.cs" />
     <Compile Include="Models\DatabaseConnection.cs" />
     <Compile Include="Models\IdentityModels.cs" />
