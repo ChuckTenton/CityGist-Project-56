@@ -1,11 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GittyCity.Models;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using MongoDB.Bson;
 using GittyCity.Controllers;
 using System.Web.Mvc;
+using GittyCity.Models;
 
 namespace GittyCity.Tests
 {
@@ -13,17 +10,12 @@ namespace GittyCity.Tests
     public class UnitTest2
     {
         [TestMethod]
-        public async Task TestMethod3()
+        public void TestDBConnection()
         {
-            RaportMaker maker = new RaportMaker();
-            var test = await Task.Run(() => RaportMaker.getMonitoringFromMongo("07:12:20", "07:13:20", 14100071, "2015-03-10 ", "Gps/GpsAccuracyGyroBias"));
-            var count = 0;
-            foreach (BsonDocument oefen in test)
-            {
-                count++;
-               Console.WriteLine(test);
-            }
-            Assert.AreEqual(1 , count);
+            var connection = DatabaseConnection.getMongoDB();
+            HomeController controller = new HomeController();
+            ViewResult result = controller.Home() as ViewResult;
+            Assert.IsNotNull(result);
         }
     }
 }
