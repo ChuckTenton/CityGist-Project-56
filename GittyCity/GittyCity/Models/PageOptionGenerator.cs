@@ -66,23 +66,5 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
         }
-
-        public static async Task<HtmlString> makePosList()
-        {
-            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16",14100071));
-            var listBuilder = "";
-            foreach (BsonDocument bdoc in PosList)
-            {
-                var posX = bdoc["Rdx"].ToDouble();
-                var posY = bdoc["Rdy"].ToDouble();
-
-                IRijksdriehoekComponent convert = new Position();
-                var test = convert.ConvertToLatLong(posX, posY);
-
-                listBuilder += "<div onloadstart='initialize(" + test + ")' id='google2' style='width: 500px; height: 380px;'> " + test + "</div>";
-            }
-            var htmlResult = new HtmlString(listBuilder);
-            return htmlResult;
-        }
     }
 }
