@@ -55,7 +55,6 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(fullTimeMaker);
             return htmlResult;
         }
-
     
         public static async Task<HtmlString> makeMiscList()
         {
