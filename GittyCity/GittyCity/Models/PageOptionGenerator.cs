@@ -1,6 +1,9 @@
 ﻿using System.Web;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using System.Collections.Generic;
+using System.Web.Mvc;
+using GittyCity.Controllers;
 
 namespace GittyCity.Models
 {
@@ -67,22 +70,29 @@ namespace GittyCity.Models
             return htmlResult;
         }
 
-        public static async Task<HtmlString> makePosList()
+        public static async Task<string[]> makePosList()
         {
             var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16",14100071));
             var listBuilder = "";
+            List<string> locations = new List <string>();
+            string[] location = new string[100];
+            var count = 0;
             foreach (BsonDocument bdoc in PosList)
             {
+                
                 var posX = bdoc["Rdx"].ToDouble();
                 var posY = bdoc["Rdy"].ToDouble();
 
                 IRijksdriehoekComponent convert = new Position();
-                var test = convert.ConvertToLatLong(posX, posY);
-
-                listBuilder += "<div onloadstart='initialize(" + test + ")' id='google2' style='width: 500px; height: 380px;'> " + test + "</div>";
+                var converted =  convert.ConvertToLatLong(posX, posY);
+                locations.Add(converted);
+                location[count] = converted;
+                listBuilder += "<div id='google2' style='width: 500px; height: 380px;'> " + converted + "</div>";
+                count++;
             }
-            var htmlResult = new HtmlString(listBuilder);
-            return htmlResult;
+            HomeController test = new HomeController();
+            //test.test(locations);
+            return location;
         }
     }
 }
