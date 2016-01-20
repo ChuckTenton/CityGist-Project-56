@@ -31,7 +31,7 @@ namespace GittyCity.Controllers
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
-            return View();
+            return RedirectToAction("getValuesAsked");
         }
         public async Task<List<HtmlString>> ViewBagFiller()
         {
