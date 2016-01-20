@@ -3,6 +3,8 @@ using System.Web;
 using System.Web.Mvc;
 using GittyCity.Models;
 using System.Threading.Tasks;
+using System;
+
 namespace GittyCity.Controllers
 {
     public class HomeController : Controller
@@ -10,6 +12,7 @@ namespace GittyCity.Controllers
         //
         // GET: /Home/
         private static List<HtmlString> viewBagList = new List<HtmlString>();
+        private static List<HtmlString> raportViewBagList = new List<HtmlString>();
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
@@ -24,14 +27,16 @@ namespace GittyCity.Controllers
         [HttpPost]
         public ActionResult Home(FormCollection collection)
         {
-            ViewBag.testPork = collection["id_0"];
-            ViewBag.Message = "Your contact page.";
+            ViewBag.testPork = collection["id_999"];
             var h = Task.Run(() => ViewBagFiller());
             var g = h.Result;
+            var monitoring = RaportGenerator.makeMonitoringList("07:12:20", "07:13:20", 14100071, "2015-03-10 ", "Gps/GpsAccuracyGyroBias").Result;
+            ViewBag.test = monitoring;
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
-            return RedirectToAction("getValuesAsked");
+            //return RedirectToAction("getValuesAsked", "Raport");
+            return View();
         }
         public async Task<List<HtmlString>> ViewBagFiller()
         {

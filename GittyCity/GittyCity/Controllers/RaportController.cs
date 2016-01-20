@@ -10,10 +10,11 @@ namespace GittyCity.Controllers
 {
     public class RaportController : Controller
     {
-        public ActionResult getValuesAsked()
+        //GET: / Raport/
+        public ActionResult getValuesAsked(List<string> id)
         {
-
-            return View();
+            return File("Sommerville.pdf", "application/pdf");
+            //return View();
         }
     }
 }
