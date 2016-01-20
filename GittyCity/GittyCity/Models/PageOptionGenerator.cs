@@ -55,7 +55,6 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(fullTimeMaker);
             return htmlResult;
         }
-
     
         public static async Task<HtmlString> makeMiscList()
         {
@@ -68,31 +67,6 @@ namespace GittyCity.Models
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
-        }
-
-        public static async Task<string[]> makePosList()
-        {
-            var PosList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList2("07:34:16",14100071));
-            var listBuilder = "";
-            List<string> locations = new List <string>();
-            string[] location = new string[100];
-            var count = 0;
-            foreach (BsonDocument bdoc in PosList)
-            {
-                
-                var posX = bdoc["Rdx"].ToDouble();
-                var posY = bdoc["Rdy"].ToDouble();
-
-                IRijksdriehoekComponent convert = new Position();
-                var converted =  convert.ConvertToLatLong(posX, posY);
-                locations.Add(converted);
-                location[count] = converted;
-                listBuilder += "<div id='google2' style='width: 500px; height: 380px;'> " + converted + "</div>";
-                count++;
-            }
-            HomeController test = new HomeController();
-            //test.test(locations);
-            return location;
         }
     }
 }

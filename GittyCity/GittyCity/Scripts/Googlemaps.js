@@ -1,5 +1,5 @@
 ﻿function initialize(cor) {
-    var LatLng = new google.maps.LatLng("52.1989253712296, 4.4717221099318");
+    var LatLng = new google.maps.LatLng(52.1989253712296, 4.4717221099318);
 
     var mapProp = {
         center: LatLng,

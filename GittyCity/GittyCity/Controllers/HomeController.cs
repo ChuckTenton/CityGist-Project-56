@@ -3,8 +3,6 @@ using System.Web;
 using System.Web.Mvc;
 using GittyCity.Models;
 using System.Threading.Tasks;
-using System.IO;
-
 namespace GittyCity.Controllers
 {
     public class HomeController : Controller
@@ -27,9 +25,13 @@ namespace GittyCity.Controllers
         public ActionResult Home(FormCollection collection)
         {
             ViewBag.testPork = collection["id_0"];
-
-            return File("Sommerville.pdf", "application/pdf");
-
+            ViewBag.Message = "Your contact page.";
+            var h = Task.Run(() => ViewBagFiller());
+            var g = h.Result;
+            ViewBag.id = g[0];
+            ViewBag.date = g[1];
+            ViewBag.misc = g[2];
+            return RedirectToAction("getValuesAsked");
         }
         public async Task<List<HtmlString>> ViewBagFiller()
         {
