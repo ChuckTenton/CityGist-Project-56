@@ -10,6 +10,7 @@ namespace GittyCity.Controllers
 {
     public class RaportController : Controller
     {
+        // GET: /Raport/
         public ActionResult getValuesAsked()
         {
 

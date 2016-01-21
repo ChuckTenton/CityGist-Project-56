@@ -16,7 +16,7 @@ namespace GittyCity.Models
             foreach (BsonDocument bDoc in IdList)
             {
                 var id = bDoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' value = 'id_" + id + "' onclick='checkbox_tick(this,\"id\")' ></div></div>";
+                listBuilder += "<div class='option'>" + id + "<div class='option_checkbox' value = " + id + " onclick='checkbox_tick(this,\"ID\")' ></div></div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
@@ -63,7 +63,7 @@ namespace GittyCity.Models
             foreach (BsonDocument bdoc in miscList)
             {
                 var misc = bdoc["_id"].ToString();
-                listBuilder += "<div class='option'>" + misc + "<div value ='misc_" + misc + "' class='option_checkbox' onclick='checkbox_tick(this,\"misc\")'></div></div>";
+                listBuilder += "<div class='option'>" + misc + "<div value =" + misc + " class='option_checkbox' onclick='checkbox_tick(this,\"misc\")'></div></div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
