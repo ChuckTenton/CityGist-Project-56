@@ -223,3 +223,6 @@ nav *{
 .arrow:hover{
     -webkit-filter: invert(30%);
 }
+.hidden{
+    display:none;
+}
