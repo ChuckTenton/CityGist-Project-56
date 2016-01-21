@@ -15,8 +15,8 @@ namespace GittyCity.Models
             var listBuilder = "";
             foreach (BsonDocument bDoc in monitoring)
             {
-                var id = bDoc["_id"].ToString();
-                listBuilder += "<div>" + monitoring + "</div>";
+                var mon = bDoc["_id"].ToString();
+                listBuilder += "<div>" + mon + "</div>";
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
