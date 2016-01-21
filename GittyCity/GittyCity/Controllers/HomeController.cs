@@ -27,31 +27,42 @@ namespace GittyCity.Controllers
         [HttpPost]
         public ActionResult Home(FormCollection collection)
         {
-            List<string> test = new List<string>();
-            List<int> test2 = new List<int>();
+            List<string> monitoring = new List<string>();
+            List<int> unit = new List<int>();
+            List<string> date = new List<string>();
 
             string s = "";
-            String sPattern = "ID_";
-            String sPattern2 = "misc_";
-            String sPattern3 = "pos";
+            List<string> sPattern = new List<string>(new string[] { "ID_", "misc_", "pos","time1","time2","date" });
             var pos = false;
             foreach (var waarde in collection.AllKeys)
             {
                 s = waarde.ToString();
-                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[0], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 {
-                    test2.Add(int.Parse(collection[waarde]));
+                    unit.Add(int.Parse(collection[waarde]));
                 }
-                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern2, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[1], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 {
-                    test.Add(collection[waarde]);
+                    monitoring.Add(collection[waarde]);
                 }
-                if(System.Text.RegularExpressions.Regex.IsMatch(s, sPattern3, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                if(System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[2], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 {
                     pos = true;
                 }
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[3], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    date.Add(collection[waarde]);
+                }
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[4], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    date.Add(collection[waarde]);
+                }
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[5], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    date.Add(collection[waarde]);
+                }
             }
-            var h = Task.Run(() => raportViewBagFiller(test,test2,pos));
+            var h = Task.Run(() => raportViewBagFiller(monitoring,unit,pos,date));
             var g = h.Result;
             ViewBag.id = g[0];
             ViewBag.date = g[1];
@@ -71,14 +82,14 @@ namespace GittyCity.Controllers
             viewBagList.Add(time_list);
             return viewBagList;
         }
-        public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos)
+        public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos, List<string> date)
         {
-            var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest,id).Result);
+            var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest,id,date).Result);
             raportViewBagList.Add(monitoring);
             raportViewBagList.Add(monitoring);
             if (pos == true)
             {
-                var collection = await Task.Run(() => RaportGenerator.positionList(id).Result);
+                var collection = await Task.Run(() => RaportGenerator.positionList(id,date).Result);
                 raportViewBagList.Add(collection);
             }
             else { raportViewBagList.Add(null); }

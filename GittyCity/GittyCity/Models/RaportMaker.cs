@@ -11,12 +11,12 @@ namespace GittyCity.Models
 {
     public class RaportMaker
     {
-        public static async Task<List<BsonDocument>> getCollectionFromMongo(string time, int id, string date, string wantedCollection)
+        public static async Task<List<BsonDocument>> getCollectionFromMongo(int id, List<string> date, string wantedCollection)
         {
             var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(wantedCollection );
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("Time", time) & builder.Eq("UnitId", id) & builder.Eq("Date", date);
+            var filter = builder.Gt("Time", date[1]) & builder.Lt("Time", date[2]) & builder.Eq("UnitId", id) & builder.Eq("Date", date[0]);
             var results = await collection.Find(filter).ToListAsync();
             return results;
         }
@@ -25,7 +25,7 @@ namespace GittyCity.Models
             var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>("Monitoring"); ;
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Eq("BeginTime", date + timeStarted) & builder.Eq("EndTime", date + timeEnded) & builder.Eq("UnitId", id) & builder.Eq("Type", type);
+            var filter = builder.Gt("BeginTime", date + timeStarted) & builder.Lt("BeginTime", date + timeEnded) & builder.Eq("UnitId", id) & builder.Eq("Type", type);
             var results = await collection.Find(filter).ToListAsync();
             return results;
         }
