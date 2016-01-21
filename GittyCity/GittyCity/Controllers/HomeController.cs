@@ -28,10 +28,8 @@ namespace GittyCity.Controllers
         public ActionResult Home(FormCollection collection)
         {
             ViewBag.testPork = collection["id_999"];
-            var h = Task.Run(() => ViewBagFiller());
+            var h = Task.Run(() => raportViewBagFiller());
             var g = h.Result;
-            var monitoring = RaportGenerator.makeMonitoringList("07:12:20", "07:13:20", 14100071, "2015-03-10 ", "Gps/GpsAccuracyGyroBias").Result;
-            ViewBag.test = monitoring;
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
@@ -49,6 +47,14 @@ namespace GittyCity.Controllers
             viewBagList.Add(misc_list);
             viewBagList.Add(time_list);
             return viewBagList;
+        }
+        public async Task<List<HtmlString>> raportViewBagFiller()
+        {
+            var monitoring = await Task.Run(() => RaportGenerator.pageList().Result);
+            raportViewBagList.Add(monitoring);
+            raportViewBagList.Add(monitoring);
+            raportViewBagList.Add(monitoring);
+            return raportViewBagList;
         }
     }
 }
