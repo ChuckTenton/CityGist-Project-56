@@ -98,7 +98,7 @@
                     elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
                     checkbox_amt++;
                     if (checkbox_amt > 0) {
-                        con.style.height = "10em";
+                        con.style.height = "20em";
                         con.style.width = "78vw";
                         con.style.padding = "1em";
                     }
@@ -116,14 +116,25 @@
                 //Function: put the usable value into their respective arrays, or change their boolean values.
                 var box_value = elem.getAttribute("value");
                 var sum_form = document.getElementById("rapport_form");
+                var form_children = sum_form.children;
                 switch (arr) {
                     case "ID": {
                         if (elem.style.backgroundImage == "none") {
                             var index = ID_List.indexOf(box_value);
-                            if (index > -1) { ID_List.splice(index, 1);}
+                            if (index > -1) { ID_List.splice(index, 1); }
+                            for (i = 0; i < form_children; i++) {
+                                if (form_children[i].getAttribute("value") == box_value) {
+                                    sum_form.removeChild(form_children[i]);
+                                }
+                            }
                         }
                         else {
                             ID_List.push(box_value);
+                            var newInput = document.createElement("input");
+                            newInput.setAttribute("value", box_value);
+                            newInput.setAttribute("name", "ID_" + box_value);
+                            newInput.setAttribute("class", "hidden");
+                            sum_form.appendChild(newInput);
                         }
                         break;
                     }
@@ -131,20 +142,58 @@
                         if (elem.style.backgroundImage == "none") {
                             var index = misc_List.indexOf(box_value);
                             if (index > -1) { misc_List.splice(index, 1); }
+                            for (i = 0; i < form_children; i++) {
+                                if (form_children[i].getAttribute("value") == box_value) {
+                                    sum_form.removeChild(form_children[i]);
+                                }
+                            }
                         }
                         else {
                             misc_List.push(box_value);
+                            var newInput = document.createElement("input");
+                            newInput.setAttribute("value", box_value);
+                            newInput.setAttribute("name", "misc_" + box_value);
+                            newInput.setAttribute("class", "hidden");
+                            sum_form.appendChild(newInput);
                         }
                         break;
                     }
                     case "position": {
-                        if (elem.style.backgroundImage == "none") { showPosition = false; }
-                        else { showPosition = true;}
+                        if (elem.style.backgroundImage == "none") {
+                            showPosition = false;
+                            for (i = 0; i < form_children; i++) {
+                                if (form_children[i].getAttribute("name") == "pos") {
+                                    sum_form.removeChild(form_children[i]);
+                                }
+                            }
+                        }
+                        else {
+                            showPosition = true;
+                            var newInput = document.createElement("input");
+                            newInput.setAttribute("value", true);
+                            newInput.setAttribute("name", "pos");
+                            newInput.setAttribute("class", "hidden");
+                            sum_form.appendChild(newInput);
+                        }
                         break;
                     }
                     case "dateTime": {
-                        if (elem.style.backgroundImage == "none") { showDateTime = false; }
-                        else { showDateTime = true; }
+                        if (elem.style.backgroundImage == "none") {
+                            showDateTime = false;
+                            for (i = 0; i < form_children; i++) {
+                                if (form_children[i].getAttribute("name") == "datetime") {
+                                    sum_form.removeChild(form_children[i]);
+                                }
+                            }
+                        }
+                        else {
+                            showDateTime = true;
+                            var newInput = document.createElement("input");
+                            newInput.setAttribute("value", true);
+                            newInput.setAttribute("name", "datetime");
+                            newInput.setAttribute("class", "hidden");
+                            sum_form.appendChild(newInput);
+                        }
                         break;
                     }
                     default: {
