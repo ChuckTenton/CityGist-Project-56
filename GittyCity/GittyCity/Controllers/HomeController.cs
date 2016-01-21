@@ -75,11 +75,9 @@ namespace GittyCity.Controllers
             var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
             var date_list = await Task.Run(() => PageOptionGenerator.makeDateList().Result);
             var misc_list = await Task.Run(() => PageOptionGenerator.makeMiscList().Result);
-            var time_list = await Task.Run(() => PageOptionGenerator.timeMaker().Result);
             viewBagList.Add(id_list);
             viewBagList.Add(date_list);
             viewBagList.Add(misc_list);
-            viewBagList.Add(time_list);
             return viewBagList;
         }
         public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos, List<string> date)

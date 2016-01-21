@@ -34,28 +34,6 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(fullSelectBuilder);
             return htmlResult;
         }
-
-        public static async Task<HtmlString> timeMaker()
-        {
-            var i = 0;
-            var maker = "";
-            while (i < 24)
-            {
-                if (i < 10)
-                {
-                    maker += "<option value = " + i + ">0" + i + ":00</option>";
-                    i++;
-                }
-                else {
-                    maker += "<option value = " + i + ">" + i + ":00</option>";
-                    i++;
-                }
-            }
-            var fullTimeMaker = "<div><select>" + maker + "</select></div>";
-            var htmlResult = new HtmlString(fullTimeMaker);
-            return htmlResult;
-        }
-    
         public static async Task<HtmlString> makeMiscList()
         {
             var miscList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Monitoring", "Type"));
