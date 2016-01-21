@@ -27,7 +27,31 @@ namespace GittyCity.Controllers
         [HttpPost]
         public ActionResult Home(FormCollection collection)
         {
-            var h = Task.Run(() => raportViewBagFiller());
+            List<string> test = new List<string>();
+            List<int> test2 = new List<int>();
+
+            string s = "";
+            String sPattern = "ID_";
+            String sPattern2 = "misc_";
+            String sPattern3 = "pos";
+            var pos = false;
+            foreach (var waarde in collection.AllKeys)
+            {
+                s = waarde.ToString();
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    test2.Add(int.Parse(collection[waarde]));
+                }
+                if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern2, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    test.Add(collection[waarde]);
+                }
+                if(System.Text.RegularExpressions.Regex.IsMatch(s, sPattern3, System.Text.RegularExpressions.RegexOptions.IgnoreCase))
+                {
+                    pos = true;
+                }
+            }
+            var h = Task.Run(() => raportViewBagFiller(test,test2,pos));
             var g = h.Result;
             ViewBag.id = g[0];
             ViewBag.date = g[1];
@@ -47,13 +71,17 @@ namespace GittyCity.Controllers
             viewBagList.Add(time_list);
             return viewBagList;
         }
-        public async Task<List<HtmlString>> raportViewBagFiller()
+        public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos)
         {
-            var monitoring = await Task.Run(() => RaportGenerator.monitoringList().Result);
-            var collection = await Task.Run(() => RaportGenerator.collectionList().Result);
+            var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest,id).Result);
             raportViewBagList.Add(monitoring);
-            raportViewBagList.Add(collection);
             raportViewBagList.Add(monitoring);
+            if (pos == true)
+            {
+                var collection = await Task.Run(() => RaportGenerator.positionList(id).Result);
+                raportViewBagList.Add(collection);
+            }
+            else { raportViewBagList.Add(null); }
             return raportViewBagList;
         }
     }

@@ -67,7 +67,6 @@
                         sum_btn.setAttribute("type", "submit");
                         sum_btn.setAttribute("name", "submit");
                         sum_btn.setAttribute("value", "Maak Rapport");
-                        sum_btn.setAttribute("Actionlink", "Pdf");
                         sum_form.appendChild(sum_btn);
                     }
                     var con = document.getElementById("summary");
@@ -170,7 +169,7 @@
                         else {
                             showPosition = true;
                             var newInput = document.createElement("input");
-                            newInput.setAttribute("value", true);
+                            newInput.setAttribute("value", "true");
                             newInput.setAttribute("name", "pos");
                             newInput.setAttribute("class", "hidden");
                             sum_form.appendChild(newInput);
@@ -264,7 +263,6 @@
                         <br />
                         <div id="unitID_options" class="cat_options">
                             @ViewBag.id
-                        @ViewBag.test
                         </div><!--
                         --><div id="unitID_end" class="cat_end">
                             Next <div onclick="tabSwitch(1);" class="arrow"></div>
