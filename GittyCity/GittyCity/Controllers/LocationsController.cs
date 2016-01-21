@@ -11,12 +11,11 @@ using System.Web.Http;
 
 namespace GittyCity.Controllers
 {
-    public class LocationsController : ApiController
+    public class LocationsController
     {
-        public async Task<HtmlString> doehet()
+        public async Task<HtmlString> getPosisionList()
         {
-            PageOptionGenerator page = new PageOptionGenerator();
-            var test = await Task.Run(() => RaportMaker.getConnectionFromMongo("07:12:20", 14100071, "2015-03-10 ", "Position"));
+            var test = await Task.Run(() => RaportMaker.getCollectionFromMongo("07:12:20", 14100071, "2015-03-10 ", "Position"));
             var outcome = "";
             foreach (BsonDocument bdoc in test)
             {

@@ -11,7 +11,7 @@ namespace GittyCity.Models
 {
     public class RaportMaker
     {
-        public static async Task<List<BsonDocument>> getConnectionFromMongo(string time, int id, string date, string wantedCollection)
+        public static async Task<List<BsonDocument>> getCollectionFromMongo(string time, int id, string date, string wantedCollection)
         {
             var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(wantedCollection );
