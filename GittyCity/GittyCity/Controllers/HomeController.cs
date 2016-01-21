@@ -27,7 +27,6 @@ namespace GittyCity.Controllers
         [HttpPost]
         public ActionResult Home(FormCollection collection)
         {
-            ViewBag.testPork = collection["id_999"];
             var h = Task.Run(() => raportViewBagFiller());
             var g = h.Result;
             ViewBag.id = g[0];
@@ -50,9 +49,10 @@ namespace GittyCity.Controllers
         }
         public async Task<List<HtmlString>> raportViewBagFiller()
         {
-            var monitoring = await Task.Run(() => RaportGenerator.pageList().Result);
+            var monitoring = await Task.Run(() => RaportGenerator.monitoringList().Result);
+            var collection = await Task.Run(() => RaportGenerator.collectionList().Result);
             raportViewBagList.Add(monitoring);
-            raportViewBagList.Add(monitoring);
+            raportViewBagList.Add(collection);
             raportViewBagList.Add(monitoring);
             return raportViewBagList;
         }
