@@ -68,9 +68,7 @@ namespace GittyCity.Controllers
             }
             var h = Task.Run(() => raportViewBagFiller(monitoring,unit,pos,date));
             var g = h.Result;
-            TempData["id"] = g[2];
-            TempData["date"] = g[1];
-            TempData["misc"] = g[2];
+            TempData["monitoring"] = g[0];
             return RedirectToAction("Report", "Raport");
         }
         // de id's, datums en speciale gebeurtenissen worden in de viewbag list gezet.
@@ -88,7 +86,6 @@ namespace GittyCity.Controllers
         public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos, List<string> date)
         {
                 var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest, id, date).Result);
-                raportViewBagList.Add(monitoring);
                 raportViewBagList.Add(monitoring);
             if (pos == true)
             {
