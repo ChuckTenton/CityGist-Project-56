@@ -18,7 +18,7 @@ namespace GittyCity.Models
             var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(wantedCollection );
             var builder = Builders<BsonDocument>.Filter;
-            var filter = builder.Gt("Time", "07:00") & builder.Lt("Time", "08:00") & builder.Eq("UnitId", id) & builder.Eq("Date", "2015-03-10");
+            var filter = builder.Gt("Time", date[1]) & builder.Lt("Time", date[2]) & builder.Eq("UnitId", id) & builder.Eq("Date", date[0]);
             var results = await collection.Find(filter).ToListAsync();
             return results;
         }
@@ -31,6 +31,7 @@ namespace GittyCity.Models
             var builder = Builders<BsonDocument>.Filter;
             var filter = builder.Gt("BeginTime", date + timeStarted) & builder.Lt("BeginTime", date + timeEnded) & builder.Eq("UnitId", id) & builder.Eq("Type", type);
             var results = await collection.Find(filter).ToListAsync();
+            if (results == null) { return null; }
             return results;
         }
     }
