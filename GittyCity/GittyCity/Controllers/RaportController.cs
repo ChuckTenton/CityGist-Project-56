@@ -13,6 +13,7 @@ namespace GittyCity.Controllers
         //GET: / Raport/
         public ActionResult getValuesAsked(List<string> id)
         {
+            //Dit is de nieuwe pagina waar alle uitkomsten op geladen worden.
             return File("Sommerville.pdf", "application/pdf");
             //return View();
         }

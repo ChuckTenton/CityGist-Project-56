@@ -9,6 +9,10 @@ namespace GittyCity.Models
 {
     public class PageOptionGenerator
     {
+        /* hier worden de waardes uit de MongoCollectionScanner gehaald.
+        per waarde unitId uit Connection wordt er een div gemaakt met opmaak en functies.
+        deze wordt aan een list die een htmlstring result is meegegeven en daarna returned 
+        */
         public static async Task<HtmlString> makeIdList()
         {
             var IdList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Connection", "UnitId"));
@@ -21,6 +25,10 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
         }
+        /* hier worden de waardes uit de MongoCollectionScanner gehaald.
+        per waarde date uit event wordt er een div gemaakt met opmaak en functies.
+        deze wordt aan een list die een htmlstring result is meegegeven en daarna returned 
+        */
         public static async Task<HtmlString> makeDateList()
         {
             var dateList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Event", "Date"));
@@ -34,6 +42,10 @@ namespace GittyCity.Models
             var htmlResult = new HtmlString(fullSelectBuilder);
             return htmlResult;
         }
+        /* hier worden de waardes uit de MongoCollectionScanner gehaald.
+        per waarde van type uit monitoring wordt er een div gemaakt met opmaak en functies.
+        deze wordt aan een list die een htmlstring result is meegegeven en daarna returned 
+        */
         public static async Task<HtmlString> makeMiscList()
         {
             var miscList = await Task.Run(() => MongoCollectionScanner.getMongoBsonList("Monitoring", "Type"));

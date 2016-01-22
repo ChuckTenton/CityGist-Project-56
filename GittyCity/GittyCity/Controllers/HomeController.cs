@@ -13,6 +13,7 @@ namespace GittyCity.Controllers
         // GET: /Home/
         private static List<HtmlString> viewBagList = new List<HtmlString>();
         private static List<HtmlString> raportViewBagList = new List<HtmlString>();
+        // dit is de aanmaak van de viewBag voor op de begin pagina
         public ActionResult Home()
         {
             ViewBag.Message = "Your contact page.";
@@ -25,6 +26,10 @@ namespace GittyCity.Controllers
             return View();
         }
         [HttpPost]
+        /*de waardes uit de webpagina worden via een form opgehaald en in een lijst gezet.
+        Ook worden deze waardes doorgegeven aan de query machine.
+        de uitkomsten worden dan in de ViewBag's gezet en komen op de nieuwe pagina.
+        */
         public ActionResult Home(FormCollection collection)
         {
             List<string> monitoring = new List<string>();
@@ -70,6 +75,7 @@ namespace GittyCity.Controllers
             //return RedirectToAction("getValuesAsked", "Raport");
             return View();
         }
+        // de id's, datums en speciale gebeurtenissen worden in de viewbag list gezet.
         public async Task<List<HtmlString>> ViewBagFiller()
         {
             var id_list = await Task.Run(() => PageOptionGenerator.makeIdList().Result);
@@ -80,6 +86,7 @@ namespace GittyCity.Controllers
             viewBagList.Add(misc_list);
             return viewBagList;
         }
+        //de gevraagde waardes worden hier aan de query machine doorgegeven. de uitkomsten komen in de raportViewBag lijst.
         public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos, List<string> date)
         {
             var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest,id,date).Result);

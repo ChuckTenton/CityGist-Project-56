@@ -9,6 +9,8 @@ namespace GittyCity.Models
 {
     public class MongoCollectionScanner
     {
+        // hier worden de begin waardes voor op de begin pagina gesorteerd op volgorde.
+        // de waardes worden terug gegeven als result
         public static async Task<List<BsonDocument>> getMongoBsonList(String collectionName, String selectItemWanted)
         {
             var _database = DatabaseConnection.getMongoDB();

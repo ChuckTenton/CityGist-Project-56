@@ -12,6 +12,7 @@ namespace GittyCity.Models
     {
         string ConvertToLatLong(double x, double y);
     }
+    // Deze hele calss is ervoor om de Rdx en Rdy om te zetten naar de coördinaten die nodig zijn.
 
     public class Position : IRijksdriehoekComponent
     {

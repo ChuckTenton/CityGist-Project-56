@@ -7,6 +7,7 @@ using MongoDB.Driver;
 
 namespace GittyCity.Models
 {
+    // deze classe is voor de connectie met de database op de server.
     public class DatabaseConnection
     {
         protected static IMongoClient _client;

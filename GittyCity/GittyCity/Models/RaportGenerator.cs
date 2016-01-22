@@ -9,6 +9,9 @@ namespace GittyCity.Models
 {
     public class RaportGenerator
     {
+        /*hier worden de waardes die uit de functie getMonitoringFromMongo gesplitst.
+        iedere waarde word dan in een div gezet.
+        */
         public static async Task<HtmlString> monitoringList(List<string> rest, List<int> id, List<string> date)
         {
             var listBuilder = "";
@@ -31,6 +34,10 @@ namespace GittyCity.Models
         }
         public static async Task<HtmlString> positionList(List<int> id, List<string> date)
         {
+            /*hier worden de waardes die uit de functie getCollectionFromMongo gesplitst.
+        iedere waarde word omgezet via de position class.
+        iedere omgezette waarde wordt dan in een aparte div gezet.
+        */
             var listBuilder = "";
             foreach (var unit in id)
             {
