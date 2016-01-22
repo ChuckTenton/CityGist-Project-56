@@ -59,7 +59,8 @@ namespace GittyCity.Models
                         IRijksdriehoekComponent convert = new Position();
                         var outcome = convert.ConvertToLatLong(corx, cory);
                         var outcomeEnd = convert.ConvertToLatLong(corxEnd, coryEnd);
-                        listBuilder += "<div>" + outcome + "</div>";
+                        listBuilder += "<div><h2>" + outcome + "</h2></div>";
+                        listBuilder += "<div><h2>" + outcomeEnd + "</h2></div>";
                     }
                 }
                 catch { }
