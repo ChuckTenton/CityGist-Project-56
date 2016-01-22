@@ -15,7 +15,7 @@ namespace GittyCity.Models
         public static async Task<HtmlString> monitoringList(List<string> rest, List<int> id, List<string> date)
         {
             var listBuilder = "";
-            listBuilder += "<b><tr><td>Unit ID</td><td>Max Begin</td><td>Min Begin</td><td>Max Eind</td><td>Min Eind</td></tr></b>";
+            listBuilder += "<b><tr><td>Unit ID</td><td>Type</td><td>Max Begin</td><td>Min Begin</td><td>Max Eind</td><td>Min Eind</td></tr></b>";
             foreach (var unit in id)
             {
                 var i = 0;
@@ -28,7 +28,7 @@ namespace GittyCity.Models
                         var max = monitoring[0]["Max"].ToString();
                         var minEnd = monitoring[length]["Min"].ToString();
                         var maxEnd = monitoring[length]["Max"].ToString();
-                        listBuilder += "<tr><td>"+ unit + "</td><td>"+ max + "</td><td>" + max +"</td><td>"+ maxEnd +"</td><td>" + minEnd+"</td></tr>";
+                        listBuilder += "<tr><td>"+ unit + "</td><td>"+rest[i]+"</td><td>"+ max + "</td><td>" + max +"</td><td>"+ maxEnd +"</td><td>" + minEnd+"</td></tr>";
                         i++;
                     }
                     catch { i++; }
@@ -47,20 +47,22 @@ namespace GittyCity.Models
             var listBuilder = "";
             foreach (var unit in id)
             {
-                
+                try {
                     var position = await Task.Run(() => RaportMaker.getCollectionFromMongo(unit, date, "Position"));
-                if (position[0] != null)
-                {
-                    var length = position.Count - 1;
-                    var corx = position[0]["Rdx"].ToDouble();
-                    var cory = position[0]["Rdy"].ToDouble();
-                    var corxEnd = position[length]["Rdx"].ToDouble();
-                    var coryEnd = position[length]["Rdy"].ToDouble();
-                    IRijksdriehoekComponent convert = new Position();
-                    var outcome = convert.ConvertToLatLong(corx, cory);
-                    var outcomeEnd = convert.ConvertToLatLong(corxEnd, coryEnd);
-                    listBuilder += "<div>" + outcome  + "</div>";
+                    if (position[0] != null)
+                    {
+                        var length = position.Count - 1;
+                        var corx = position[0]["Rdx"].ToDouble();
+                        var cory = position[0]["Rdy"].ToDouble();
+                        var corxEnd = position[length]["Rdx"].ToDouble();
+                        var coryEnd = position[length]["Rdy"].ToDouble();
+                        IRijksdriehoekComponent convert = new Position();
+                        var outcome = convert.ConvertToLatLong(corx, cory);
+                        var outcomeEnd = convert.ConvertToLatLong(corxEnd, coryEnd);
+                        listBuilder += "<div>" + outcome + "</div>";
+                    }
                 }
+                catch { }
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
