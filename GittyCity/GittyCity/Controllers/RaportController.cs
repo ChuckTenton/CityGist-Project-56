@@ -1,21 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
+using GittyCity.Models;
+using System.Threading.Tasks;
+using System;
 
 namespace GittyCity.Controllers
 {
     public class RaportController : Controller
     {
         // GET: /Home/
-        public ActionResult Report(List<string> id)
+        public ActionResult Report(List<HtmlString> VBL)
         {
-            //Dit is de nieuwe pagina waar alle uitkomsten op geladen worden.
+            ViewBag.id = TempData["id"];
             return View();
-            //return View();
         }
     }
 }

@@ -68,9 +68,9 @@ namespace GittyCity.Controllers
             }
             var h = Task.Run(() => raportViewBagFiller(monitoring,unit,pos,date));
             var g = h.Result;
-            ViewBag.id = g[0];
-            ViewBag.date = g[1];
-            ViewBag.misc = g[2];
+            TempData["id"] = g[2];
+            TempData["date"] = g[1];
+            TempData["misc"] = g[2];
             return RedirectToAction("Report", "Raport");
         }
         // de id's, datums en speciale gebeurtenissen worden in de viewbag list gezet.
