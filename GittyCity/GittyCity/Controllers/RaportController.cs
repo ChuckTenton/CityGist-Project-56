@@ -10,7 +10,7 @@ namespace GittyCity.Controllers
 {
     public class RaportController : Controller
     {
-        //GET: / Raport/
+        // GET: /Home/
         public ActionResult getValuesAsked(List<string> id)
         {
             //Dit is de nieuwe pagina waar alle uitkomsten op geladen worden.
