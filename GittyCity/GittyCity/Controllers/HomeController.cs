@@ -33,7 +33,7 @@ namespace GittyCity.Controllers
         {
             List<string> monitoring = new List<string>();
             List<int> unit = new List<int>();
-            List<string> date = new List<string>(new string[] { "2015-03-10","07:00","08:00"});
+            List<string> date = new List<string>(new string[] { "2015-03-10","07:00","12:00"});
 
             string s = "";
             List<string> sPattern = new List<string>(new string[] { "ID_", "misc_", "pos","time1","time2","date" });
