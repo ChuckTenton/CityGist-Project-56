@@ -59,8 +59,8 @@ namespace GittyCity.Models
                         IRijksdriehoekComponent convert = new Position();
                         var outcome = convert.ConvertToLatLong(corx, cory);
                         var outcomeEnd = convert.ConvertToLatLong(corxEnd, coryEnd);
-                        listBuilder += "<div><h2>" + outcome + "</h2></div>";
-                        listBuilder += "<div><h2>" + outcomeEnd + "</h2></div>";
+                        listBuilder += "<div><h2> de begin coördinaten van:"+unit+" zijn: " + outcome + "</h2></div>";
+                        listBuilder += "<div><h2> de eind coördinaten van:"+unit+" zijn: " + outcomeEnd + "</h2></div>";
                     }
                 }
                 catch { }
