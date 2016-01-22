@@ -22,7 +22,6 @@ namespace GittyCity.Controllers
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
-            ViewBag.time = g[3];
             return View();
         }
         [HttpPost]
@@ -34,7 +33,7 @@ namespace GittyCity.Controllers
         {
             List<string> monitoring = new List<string>();
             List<int> unit = new List<int>();
-            List<string> date = new List<string>();
+            List<string> date = new List<string>(new string[] { "2015-03-10","07:00","08:00"});
 
             string s = "";
             List<string> sPattern = new List<string>(new string[] { "ID_", "misc_", "pos","time1","time2","date" });
@@ -89,9 +88,9 @@ namespace GittyCity.Controllers
         //de gevraagde waardes worden hier aan de query machine doorgegeven. de uitkomsten komen in de raportViewBag lijst.
         public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos, List<string> date)
         {
-            var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest,id,date).Result);
-            raportViewBagList.Add(monitoring);
-            raportViewBagList.Add(monitoring);
+                var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest, id, date).Result);
+                raportViewBagList.Add(monitoring);
+                raportViewBagList.Add(monitoring);
             if (pos == true)
             {
                 var collection = await Task.Run(() => RaportGenerator.positionList(id,date).Result);

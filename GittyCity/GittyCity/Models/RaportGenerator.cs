@@ -41,17 +41,20 @@ namespace GittyCity.Models
             var listBuilder = "";
             foreach (var unit in id)
             {
-                var position = await Task.Run(() => RaportMaker.getCollectionFromMongo(unit, date, "Position"));
-                var length = position.Count;
-
-                var corx = position[0]["Rdx"].ToDouble();
-                var cory = position[0]["Rdy"].ToDouble();
-                var corxEnd = position[length].ToDouble();
-                var coryEnd = position[length].ToDouble();
-                IRijksdriehoekComponent convert = new Position();
-                var outcome = convert.ConvertToLatLong(corx, cory);
-                var outcomeEnd = convert.ConvertToLatLong(corxEnd, coryEnd);
-                listBuilder += "<div>" + outcome + "</div>";
+                
+                    var position = await Task.Run(() => RaportMaker.getCollectionFromMongo(unit, date, "Position"));
+                //if (position[0] != null)
+                //{
+                    var length = position.Count - 1;
+                    var corx = position[0]["Rdx"].ToDouble();
+                    var cory = position[0]["Rdy"].ToDouble();
+                    //var corxEnd = position[length]["Rdx"].ToDouble();
+                   // var coryEnd = position[length]["Rdy"].ToDouble();
+                    IRijksdriehoekComponent convert = new Position();
+                    var outcome = convert.ConvertToLatLong(corx, cory);
+                   // var outcomeEnd = convert.ConvertToLatLong(corxEnd, coryEnd);
+                    listBuilder += "<div>" + outcome  + "</div>";
+                //}
             }
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
