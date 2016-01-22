@@ -71,8 +71,7 @@ namespace GittyCity.Controllers
             ViewBag.id = g[0];
             ViewBag.date = g[1];
             ViewBag.misc = g[2];
-            //return RedirectToAction("getValuesAsked", "Raport");
-            return View();
+            return RedirectToAction("Report", "Raport");
         }
         // de id's, datums en speciale gebeurtenissen worden in de viewbag list gezet.
         public async Task<List<HtmlString>> ViewBagFiller()
