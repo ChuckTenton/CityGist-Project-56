@@ -234,3 +234,7 @@ nav *{
 #reportTable table{
     width: 100%;
 }
+h4{
+    width: 80%;
+    margin: 0px auto 0px auto;    
+}
