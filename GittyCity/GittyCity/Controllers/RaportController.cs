@@ -13,6 +13,7 @@ namespace GittyCity.Controllers
         public ActionResult Report(List<HtmlString> VBL)
         {
             ViewBag.id = TempData["monitoring"];
+            ViewBag.pos = TempData["position"];
             return View();
         }
     }

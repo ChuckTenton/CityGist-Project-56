@@ -12,7 +12,7 @@ namespace GittyCity.Models
         /*hier worden de waardes die uit de functie getMonitoringFromMongo gesplitst.
         iedere waarde word dan in een div gezet.
         */
-        public static async Task<HtmlString> monitoringList(List<string> rest, List<int> id, List<string> date)
+        public static async Task<HtmlString> monitoringList(List<string> rest, List<Int64> id, List<string> date)
         {
             var listBuilder = "";
             listBuilder += "<b><tr><td>Unit ID</td><td>Type</td><td>Max Begin</td><td>Min Begin</td><td>Max Eind</td><td>Min Eind</td></tr></b>";
@@ -34,11 +34,11 @@ namespace GittyCity.Models
                     catch { i++; }
                 }
             }
-            listBuilder = "<div><table>" + listBuilder + "</table></div>";
+            listBuilder = "<div id='reportTable'><table>" + listBuilder + "</table></div>";
             var htmlResult = new HtmlString(listBuilder);
             return htmlResult;
         }
-        public static async Task<HtmlString> positionList(List<int> id, List<string> date)
+        public static async Task<HtmlString> positionList(List<Int64> id, List<string> date)
         {
             /*hier worden de waardes die uit de functie getCollectionFromMongo gesplitst.
         iedere waarde word omgezet via de position class.

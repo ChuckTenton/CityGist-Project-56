@@ -13,7 +13,7 @@ namespace GittyCity.Models
     {
         //dit is de query machine die alle userinput als filter opgeeft. Hier wordt de data uit Position gehaald.
         //De uitkomst wordt als result terug gegeven.
-        public static async Task<List<BsonDocument>> getCollectionFromMongo(int id, List<string> date, string wantedCollection)
+        public static async Task<List<BsonDocument>> getCollectionFromMongo(Int64 id, List<string> date, string wantedCollection)
         {
             var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>(wantedCollection );
@@ -24,7 +24,7 @@ namespace GittyCity.Models
         }
         //dit is de query machine die alle userinput als filter opgeeft. Hier wordt de data uit Monitoring gehaald.
         //De uitkomst wordt als result terug gegeven.
-        public static async Task<List<BsonDocument>> getMonitoringFromMongo(string timeStarted, string timeEnded, int id, string date, string type)
+        public static async Task<List<BsonDocument>> getMonitoringFromMongo(string timeStarted, string timeEnded, Int64 id, string date, string type)
         {
             var _database = DatabaseConnection.getMongoDB();
             var collection = _database.GetCollection<BsonDocument>("Monitoring"); ;

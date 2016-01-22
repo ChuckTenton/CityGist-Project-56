@@ -32,7 +32,7 @@ namespace GittyCity.Controllers
         public ActionResult Home(FormCollection collection)
         {
             List<string> monitoring = new List<string>();
-            List<int> unit = new List<int>();
+            List<Int64> unit = new List<Int64>();
             List<string> date = new List<string>(new string[] { "2015-03-10","07:00","12:00"});
 
             string s = "";
@@ -43,7 +43,7 @@ namespace GittyCity.Controllers
                 s = waarde.ToString();
                 if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[0], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 {
-                    unit.Add(int.Parse(collection[waarde]));
+                    unit.Add(Int64.Parse(collection[waarde]));
                 }
                 if (System.Text.RegularExpressions.Regex.IsMatch(s, sPattern[1], System.Text.RegularExpressions.RegexOptions.IgnoreCase))
                 {
@@ -69,6 +69,7 @@ namespace GittyCity.Controllers
             var h = Task.Run(() => raportViewBagFiller(monitoring,unit,pos,date));
             var g = h.Result;
             TempData["monitoring"] = g[0];
+            TempData["position"] = g[1];
             return RedirectToAction("Report", "Raport");
         }
         // de id's, datums en speciale gebeurtenissen worden in de viewbag list gezet.
@@ -83,7 +84,7 @@ namespace GittyCity.Controllers
             return viewBagList;
         }
         //de gevraagde waardes worden hier aan de query machine doorgegeven. de uitkomsten komen in de raportViewBag lijst.
-        public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<int> id, Boolean pos, List<string> date)
+        public async Task<List<HtmlString>> raportViewBagFiller(List<string> rest, List<Int64> id, Boolean pos, List<string> date)
         {
                 var monitoring = await Task.Run(() => RaportGenerator.monitoringList(rest, id, date).Result);
                 raportViewBagList.Add(monitoring);

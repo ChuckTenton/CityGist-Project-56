@@ -226,3 +226,11 @@ nav *{
 .hidden{
     display:none;
 }
+#reportTable{
+    display: block;
+    margin: 0px auto 0px auto;
+    width: 90%;
+}
+#reportTable table{
+    width: 100%;
+}

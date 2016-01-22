@@ -46,50 +46,6 @@
                 rel_height = Math.ceil(max_height / pix_amt_sh);
                 document.getElementById("empty_con").style.height = rel_height + "vh";
             }
-            function checkbox_tickOLD(elem, arr) {     //What happens if you click the checkboxes behind values on-screen
-                var box_value_raw = elem.getAttribute("value");
-                var regx_patt = /([a-z]{2,4})(?=_)/g;
-                regx_patt.lastIndex = 0;
-                var box_category_arr = regx_patt.exec(box_value_raw);
-                var box_category_clean = box_category_arr[0];
-                var box_value_clean = box_value_raw.replace(/([a-z]{2,4})_/, "");
-                var sum_form = document.getElementById("rapport_form");
-                if (elem.style.backgroundImage != 'url("/Images/sprite45986.png")') {
-                    elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
-                    var sum_item = document.createElement("input");
-                    sum_item.setAttribute("type", "text");
-                    sum_item.setAttribute("value", box_value_clean);
-                    sum_item.setAttribute("name", box_value_raw);
-                    sum_form.appendChild(sum_item);
-                    var children_amt = sum_form.children.length;
-                    if (children_amt == 1) {
-                        var sum_btn = document.createElement("input");
-                        sum_btn.setAttribute("type", "submit");
-                        sum_btn.setAttribute("name", "submit");
-                        sum_btn.setAttribute("value", "Maak Rapport");
-                        sum_form.appendChild(sum_btn);
-                    }
-                    var con = document.getElementById("summary");
-                    con.style.height = "10em";
-                    con.style.width = "78vw";
-                    con.style.padding = "1em";
-                }
-                else {
-                    elem.style.backgroundImage = "none";
-                    sum_children = sum_form.children;
-                    for (i = 0; i < sum_children.length; i++) {
-                        if (sum_children[i].getAttribute("name") == box_value_raw) {
-                            sum_form.removeChild(sum_children[i]);
-                        }
-                    }
-                    if (sum_children.length == 1) {
-                        var con = document.getElementById("summary");
-                        con.style.height = "0em";
-                        con.style.width = "0vw";
-                        con.style.padding = "0em";
-                    }
-                }
-            }
             function checkbox_tick(elem, arr) {
                 //Aesthetics; Put in the 'checked' image and render 'summary' if needed.
                 var con = document.getElementById("summary");
@@ -97,7 +53,7 @@
                     elem.style.backgroundImage = 'url("/Images/sprite45986.png")';
                     checkbox_amt++;
                     if (checkbox_amt > 0) {
-                        con.style.height = "20em";
+                        con.style.height = "35em";
                         con.style.width = "78vw";
                         con.style.padding = "1em";
                     }
